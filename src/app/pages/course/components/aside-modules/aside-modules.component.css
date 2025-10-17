@@ -1,0 +1,110 @@
+.sidebar {
+  max-width: 25vw;
+  overflow-y: auto;
+  max-height: 92vh;
+  -webkit-overflow-scrolling: touch;
+  /* Keep sidebar visible while the page scrolls */
+  position: sticky;
+  top: 60px;
+}
+
+.modules-list .module .module-container {
+  padding: 22px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--light-gray-color);
+  border: 1px solid #d9d9d9;
+}
+
+.module-container .title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.module-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.title-container img {
+  padding-left: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.module.open .title-container img {
+  transform: rotateX(180deg);
+}
+
+.module-container .progress-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.progress-container .percentage {
+  font-size: 0.875rem;
+  padding-left: 1rem;
+}
+
+.progress-bar {
+  height: 4px;
+  width: 100%;
+  border-radius: 2px;
+  background-color: #d9d9d9;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.lessons-list {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.lessons-list.hide {
+  max-height: 0;
+  opacity: 0;
+}
+
+.lessons-list.show {
+  max-height: 1000px;
+  opacity: 1;
+}
+
+.lessons-list.show + .title-container img {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
+
+.lessons-list .lesson {
+  min-height: 3.75rem;
+  padding: 1rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: var(--green-color);
+  }
+}
+
+.lesson a {
+  text-decoration: none;
+  color: var(--body-font-color);
+  margin-left: 0.5rem;
+}
+
+.selected {
+  background-color: var(--bg-color-1);
+}

@@ -1,0 +1,16 @@
+.lesson-header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+}
+
+.compress-tab img {
+  color: red;
+  stroke: currentColor;
+}
+
+.lesson-header .lesson-title {
+  font-size: 1.125rem;
+  font-weight: 400;
+}

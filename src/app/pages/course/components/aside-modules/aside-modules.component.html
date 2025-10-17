@@ -1,0 +1,42 @@
+<aside class="sidebar">
+  <nav class="modules">
+    <ul class="modules-list">
+      <li
+        class="module"
+        *ngFor="let module of modules; let i = index"
+        [ngClass]="{ open: openedIndex === i }"
+      >
+        <div class="module-container" (click)="toggleLessons(i)">
+          <div class="title-container">
+            <h3 class="module-title">
+              {{ module.title }}
+            </h3>
+            <img src="assets/icons/arrow-down.svg" alt="seta para baixo" />
+          </div>
+          <div class="progress-container">
+            <div class="progress-bar">
+              <div
+                class="progress-fill"
+                [style.width.%]="module.progress"
+              ></div>
+            </div>
+            <span class="percentage">{{ module.progress }}%</span>
+          </div>
+        </div>
+
+        <ul
+          class="lessons-list"
+          [ngClass]="{ show: openedIndex === i, hide: openedIndex !== i }"
+        >
+          <li
+            class="lesson {{ lesson.selected ? 'selected' : '' }}"
+            *ngFor="let lesson of module.lessons"
+          >
+            <input type="checkbox" id="{{ lesson.title }}" />
+            <a class="lesson-link" href="#">{{ lesson.title }}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</aside>
