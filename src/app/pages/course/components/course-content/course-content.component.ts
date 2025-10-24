@@ -8,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrl: './course-content.component.css'
 })
 export class CourseContentComponent {
+  Completed: boolean = false;
+  NextLesson: boolean = false;
 
+  toggleCompleted() {
+    if (this.Completed) {
+      this.NextLesson = true;
+    } else {
+      this.Completed = true;
+    }
+  }
 }

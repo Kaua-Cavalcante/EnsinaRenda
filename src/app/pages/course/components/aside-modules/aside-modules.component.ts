@@ -10,11 +10,11 @@ import { Component } from '@angular/core';
 })
 export class AsideModulesComponent {
   lessons = [
-    { title: '1. Boas-vindas e visão geral', selected: false },
-    { title: '2. Fundamentos essenciais', selected: true },
-    { title: '3. Técnicas avançadas', selected: false },
-    { title: '4. Análise de casos reais', selected: false },
-    { title: '5. Resumo e recursos adicionais', selected: false }
+    { title: '1. Boas-vindas e visão geral', selected: false, completed: true },
+    { title: '2. Fundamentos essenciais', selected: true, completed: false },
+    { title: '3. Técnicas avançadas', selected: false, completed: false },
+    { title: '4. Análise de casos reais', selected: false, completed: false },
+    { title: '5. Resumo e recursos adicionais', selected: false, completed: false }
   ];
 
   modules = [

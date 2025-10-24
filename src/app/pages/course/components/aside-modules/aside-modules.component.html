@@ -32,8 +32,8 @@
             class="lesson {{ lesson.selected ? 'selected' : '' }}"
             *ngFor="let lesson of module.lessons"
           >
-            <input type="checkbox" id="{{ lesson.title }}" />
             <a class="lesson-link" href="#">{{ lesson.title }}</a>
+            <img src="assets/icons/check.svg" alt="check icon" *ngIf="lesson.completed">
           </li>
         </ul>
       </li>
