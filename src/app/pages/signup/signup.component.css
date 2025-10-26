@@ -110,6 +110,13 @@ form .input-group .show-password input {
     scale: 1.05;
     filter: brightness(1.1);
   }
+
+  &:disabled {
+    background: var(--slate-gray-color);
+    cursor: not-allowed;
+    scale: 1;
+    filter: none;
+  }
 }
 
 .form-container .create-btn span {
@@ -171,8 +178,11 @@ form .input-group .show-password input {
 }
 
 .error {
-  color: var(--dark-slate-gray-color);
+  color: var(--dark-red-color);
   font-size: 0.875rem;
-  list-style: outside;
   margin-left: 0.875rem;
+}
+
+.error li {
+  list-style: outside;
 }

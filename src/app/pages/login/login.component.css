@@ -116,6 +116,13 @@ form .input-group .show-password label {
     scale: 1.05;
     filter: brightness(1.1);
   }
+
+  &:disabled {
+    background: var(--slate-gray-color);
+    cursor: not-allowed;
+    scale: 1;
+    filter: none;
+  }
 }
 
 .form-container .login-btn span {
@@ -176,4 +183,14 @@ form .input-group .show-password label {
   line-height: 2.25rem;
   color: var(--dark-slate-gray-color);
   width: 100%;
+}
+
+.error {
+  color: var(--dark-red-color);
+  font-size: 0.875rem;
+  margin-left: 0.875rem;
+}
+
+.error li {
+  list-style: outside;
 }

@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <form (ngSubmit)="onSubmit()">
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
       <div class="title-container">
         <img src="assets/icons/logo-icon.svg" alt="Ícone do logo" />
         <h3>Entre para continuar</h3>
@@ -28,7 +28,14 @@
             [(ngModel)]="email"
             name="email"
             required
+            email
+            #emailField="ngModel"
           />
+
+          <div class="error" *ngIf="emailField.invalid && emailField.touched">
+            <li *ngIf="emailField.errors?.['required']">O e-mail é obrigatório.</li>
+            <li *ngIf="emailField.errors?.['email']">Insira um e-mail válido.</li>
+          </div>
         </div>
 
         <div class="input-group password">
@@ -38,9 +45,16 @@
             id="password"
             placeholder="Insira sua senha"
             [(ngModel)]="senha"
-            name="password"
+            #senhaField="ngModel"
+            name="senha"
             required
           />
+
+          <div class="error" *ngIf="senhaField.invalid && senhaField.touched">
+            <li *ngIf="senhaField.errors?.['required']">A senha é obrigatória.</li>
+            <!-- <li *ngIf="senhaField.errors?.['minlength']">A senha deve ter pelo menos 6 caracteres.</li> -->
+          </div>
+
           <div class="password-container">
             <div class="show-password">
               <input
@@ -57,7 +71,7 @@
           </div>
         </div>
 
-        <button class="login-btn" type="submit" [disabled]="loading">
+        <button class="login-btn" type="submit" [disabled]="loading || loginForm.invalid">
           <span *ngIf="!loading">Continuar</span>
           <span *ngIf="loading">Entrando...</span>
           <img

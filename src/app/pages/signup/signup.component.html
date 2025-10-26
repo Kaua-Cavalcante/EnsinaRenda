@@ -18,8 +18,12 @@
             required
             [(ngModel)]="nome"
             name="nome"
+            #nameField="ngModel"
           />
-          <li *ngIf="nome && !nomeValido()" class="error">Informe nome e sobrenome.</li>
+          <div class="error" *ngIf="nameField.invalid && nameField.touched">
+            <li *ngIf="nameField.errors?.['required']">Nome é obrigatório.</li>
+            <li *ngIf="nome && !nomeValido()">Informe nome e sobrenome.</li>
+          </div>
         </div>
 
         <div class="input-group email">
@@ -31,8 +35,13 @@
             required
             [(ngModel)]="email"
             name="email"
+            #emailField="ngModel"
+            email
           />
-          <li *ngIf="email && !emailValido()" class="error">E-mail inválido.</li>
+          <div class="error" *ngIf="emailField.invalid && emailField.touched">
+            <li *ngIf="emailField.errors?.['required']">E-mail é obrigatório.</li>
+            <li *ngIf="emailField.errors?.['email']">Insira um e-mail válido.</li>
+          </div>
         </div>
 
         <div class="input-group birthdate">
@@ -43,10 +52,12 @@
             required
             [(ngModel)]="dataNascimento"
             name="dataNascimento"
+            #dataNascimentoField="ngModel"
           />
-          <li *ngIf="dataNascimento && !dataNascimentoValida()" class="error">
-            Informe uma data válida (mínimo 15 anos).
-          </li>
+          <div class="error" *ngIf="dataNascimentoField.invalid && dataNascimentoField.touched">
+            <li *ngIf="dataNascimentoField.errors?.['required']">Data de nascimento é obrigatória.</li>
+            <li *ngIf="dataNascimento && !dataNascimentoValida()">Informe uma data válida (mínimo 15 anos).</li>
+          </div>
         </div>
 
         <div class="input-group password">
@@ -58,7 +69,14 @@
             id="password"
             placeholder="Insira sua senha"
             required
+            #senhaField="ngModel"
           />
+
+          <div class="error" *ngIf="senhaField.invalid && senhaField.touched">
+            <li *ngIf="senhaField.errors?.['required']">A senha é obrigatória.</li>
+            <!-- <li *ngIf="senhaField.errors?.['minlength']">A senha deve ter pelo menos 6 caracteres.</li> -->
+          </div>
+
           <div class="show-password">
             <input
               type="checkbox"
@@ -81,14 +99,17 @@
             required
             [(ngModel)]="confirmarSenha"
             name="confirmarSenha"
+            #confirmarSenhaField="ngModel"
           />
-          <li *ngIf="senha && confirmarSenha && senha !== confirmarSenha" class="error">
-            As senhas não coincidem.
-          </li>
+          <div class="error" *ngIf="confirmarSenhaField.invalid && confirmarSenhaField.touched">
+            <li *ngIf="confirmarSenhaField.errors?.['required']">A confirmação de senha é obrigatória.</li>
+            <li *ngIf="senha && confirmarSenha && senha !== confirmarSenha">As senhas não coincidem.</li>
+          </div>
         </div>
 
-        <button class="create-btn" type="submit">
-          <span>Criar conta</span>
+        <button class="create-btn" type="submit" [disabled]="loading || form.invalid">
+          <span *ngIf="!loading">Criar conta</span>
+          <span *ngIf="loading">Criando...</span>
           <img
             src="assets/icons/arrow-circle-right.svg"
             alt="Seta para a direita"

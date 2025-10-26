@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FooterService } from '../../services/footer.service';
@@ -32,8 +32,8 @@ export class LoginComponent {
     this.showPassword = !this.showPassword;
   }
 
-  async onSubmit() {
-    if (!this.email || !this.senha) {
+  async onSubmit(form: NgForm) {
+    if (form.invalid) {
       alert('Por favor, preencha todos os campos.');
       return;
     }

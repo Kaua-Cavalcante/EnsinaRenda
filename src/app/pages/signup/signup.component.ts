@@ -22,6 +22,7 @@ export class SignupComponent {
   senha: string = '';
   confirmarSenha: string = '';
   dataNascimento: string = '';
+  loading: boolean = false;
 
   showPassword: boolean = false;
   senhasNaoCoincidem: boolean = false;
@@ -66,7 +67,7 @@ export class SignupComponent {
   }
 
   async onSubmit(form: NgForm) {
-    if (!form.valid) {
+    if (form.invalid) {
       alert("Por favor, preencha todos os campos corretamente.");
       return;
     }
@@ -91,14 +92,17 @@ export class SignupComponent {
       return;
     }
 
+    this.loading = true;
+
     try {
       const dataFormatada = this.formatarDataNascimento(this.dataNascimento);
       await this.authService.cadastrar(this.nome, this.email, this.senha, dataFormatada);
-      alert("Cadastro realizado com sucesso!");
       this.router.navigate(['/login']);
     } catch (error: any) {
       console.error("Erro ao cadastrar:", error);
       alert("Falha no cadastro. Por favor, tente novamente.");
+    } finally {
+      this.loading = false;
     }
   }
 
