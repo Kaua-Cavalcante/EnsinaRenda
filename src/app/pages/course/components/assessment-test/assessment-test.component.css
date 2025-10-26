@@ -1,0 +1,22 @@
+.title-container {
+  background-image: url("/assets/images/lesson-banner.png");
+  background-size: cover;
+  background-position: center;
+  height: 60vh;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--light-gray-color);
+  max-width: 500px;
+}
+
+.content-container {
+  margin-bottom: 20px;
+  padding: 2rem;
+}
+

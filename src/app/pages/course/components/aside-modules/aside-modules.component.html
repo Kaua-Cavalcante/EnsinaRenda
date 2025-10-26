@@ -32,8 +32,17 @@
             class="lesson {{ lesson.selected ? 'selected' : '' }}"
             *ngFor="let lesson of module.lessons"
           >
-            <a class="lesson-link" href="#">{{ lesson.title }}</a>
-            <img src="assets/icons/check.svg" alt="check icon" *ngIf="lesson.completed">
+            <a
+              class="lesson-link"
+              (click)="onLessonClick(lesson)"
+              href="javascript:void(0)"
+              >{{ lesson.title }}</a
+            >
+            <img
+              src="assets/icons/check.svg"
+              alt="check icon"
+              *ngIf="lesson.completed"
+            />
           </li>
         </ul>
       </li>

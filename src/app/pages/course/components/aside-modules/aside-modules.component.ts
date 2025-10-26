@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-aside-modules',
@@ -9,12 +9,14 @@ import { Component } from '@angular/core';
   styleUrl: './aside-modules.component.css'
 })
 export class AsideModulesComponent {
+  @Output() testSelected = new EventEmitter<boolean>();
   lessons = [
-    { title: '1. Boas-vindas e visão geral', selected: false, completed: true },
-    { title: '2. Fundamentos essenciais', selected: true, completed: false },
-    { title: '3. Técnicas avançadas', selected: false, completed: false },
-    { title: '4. Análise de casos reais', selected: false, completed: false },
-    { title: '5. Resumo e recursos adicionais', selected: false, completed: false }
+    { title: '1. Boas-vindas e visão geral', selected: false, completed: true, test: false },
+    { title: '2. Fundamentos essenciais', selected: true, completed: false, test: false },
+    { title: '3. Técnicas avançadas', selected: false, completed: false, test: false },
+    { title: '4. Análise de casos reais', selected: false, completed: false, test: false },
+    { title: '5. Resumo e recursos adicionais', selected: false, completed: false, test: false },
+    { title: '6. Avaliação final', selected: false, completed: false, test: true }
   ];
 
   modules = [
@@ -31,4 +33,7 @@ export class AsideModulesComponent {
     this.openedIndex = this.openedIndex === index ? null : index;
   }
 
+  onLessonClick(lesson: any) {
+    this.testSelected.emit(lesson.test);
+  }
 }

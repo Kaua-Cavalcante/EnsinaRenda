@@ -2,7 +2,7 @@
 
 <div class="signup">
   <div class="signup-container">
-    <form>
+    <form (ngSubmit)="onSubmit()">
       <div class="title-container">
         <img src="assets/icons/logo-icon.svg" alt="Ícone do logo" />
         <h3>Cadastre-se para continuar</h3>
@@ -16,6 +16,8 @@
             type="text"
             placeholder="Insira seu nome completo"
             required
+            [(ngModel)]="nome"
+            name="nome"
           />
         </div>
 
@@ -26,26 +28,42 @@
             type="email"
             placeholder="Insira seu email"
             required
+            [(ngModel)]="email"
+            name="email"
           />
         </div>
 
         <div class="input-group birthdate">
           <label for="birthdate">Data de nascimento</label>
-          <input id="birthdate" type="date" required />
+          <input
+            id="birthdate"
+            type="date"
+            required
+            [(ngModel)]="dataNascimento"
+            name="dataNascimento"
+          />
         </div>
 
         <div class="input-group password">
           <label for="password">Senha</label>
           <input
             [type]="showPassword ? 'text' : 'password'"
-            [(ngModel)]="password"
+            [(ngModel)]="senha"
+            name="senha"
             id="password"
             placeholder="Insira sua senha"
             required
           />
           <div class="show-password">
-            <input type="checkbox" name="show-password" id="show-password" (change)="togglePassword()" />
-            <label for="show-password">{{showPassword ? 'Ocultar senha' : 'Visualizar senha'}}</label>
+            <input
+              type="checkbox"
+              name="show-password"
+              id="show-password"
+              (change)="togglePassword()"
+            />
+            <label for="show-password">{{
+              showPassword ? "Ocultar senha" : "Visualizar senha"
+            }}</label>
           </div>
         </div>
 
@@ -56,7 +74,12 @@
             type="password"
             placeholder="Confirme sua senha"
             required
+            [(ngModel)]="confirmarSenha"
+            name="confirmarSenha"
           />
+          <div class="password-alert">
+            <p *ngIf="senhasNaoCoincidem">As senhas não coincidem.</p>
+          </div>
         </div>
 
         <button class="create-btn" type="submit">
@@ -66,6 +89,7 @@
             alt="Seta para a direita"
           />
         </button>
+
         <p class="have-account">
           Já possui uma conta? <a routerLink="/login" class="link">Entrar</a>
         </p>
@@ -80,4 +104,5 @@
     </div>
   </div>
 </div>
+
 <app-footer></app-footer>
