@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <form>
+    <form (ngSubmit)="onSubmit()">
       <div class="title-container">
         <img src="assets/icons/logo-icon.svg" alt="Ícone do logo" />
         <h3>Entre para continuar</h3>
@@ -25,6 +25,8 @@
             id="email"
             type="email"
             placeholder="Insira seu email"
+            [(ngModel)]="email"
+            name="email"
             required
           />
         </div>
@@ -35,6 +37,8 @@
             [type]="showPassword ? 'text' : 'password'"
             id="password"
             placeholder="Insira sua senha"
+            [(ngModel)]="senha"
+            name="password"
             required
           />
           <div class="password-container">
@@ -53,8 +57,9 @@
           </div>
         </div>
 
-        <button routerLink="/course" class="login-btn" type="submit">
-          <span>Continuar</span>
+        <button class="login-btn" type="submit" [disabled]="loading">
+          <span *ngIf="!loading">Continuar</span>
+          <span *ngIf="loading">Entrando...</span>
           <img
             src="assets/icons/arrow-circle-right.svg"
             alt="Seta para a direita"

@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
 import { AssessmentTestComponent } from './pages/course/components/assessment-test/assessment-test.component';
-import { CourseComponent } from './pages/course/course.component';
 import { CourseContentComponent } from './pages/course/components/course-content/course-content.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { LandingComponent } from './pages/landing/landing.component';
@@ -16,7 +16,8 @@ export const routes: Routes = [
     { path: 'reset-password', title: 'Redefinir senha', component: ResetPasswordComponent },
     { 
         path: 'course',
-        component: CourseComponent,
+        loadComponent: () => import('./pages/course/course.component').then(m => m.CourseComponent),
+        canActivate: [authGuard],
         children: [
             { path: '', title: 'Curso Renda Fixa', component: CourseContentComponent },
             { path: 'prova', title: 'Prova Renda Fixa', component: AssessmentTestComponent }
