@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FooterService } from '../../services/footer.service';
@@ -37,6 +37,27 @@ export class SignupComponent {
     this.showPassword = !this.showPassword;
   }
 
+  nomeValido(): boolean {
+    return this.nome.trim().split(' ').length >= 2;
+  }
+
+  emailValido(): boolean {
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regexEmail.test(this.email);
+  }
+
+  dataNascimentoValida(): boolean {
+    if (!this.dataNascimento) return false;
+    const hoje = new Date();
+    const dataNasc = new Date(this.dataNascimento);
+    const idade = hoje.getFullYear() - dataNasc.getFullYear();
+    const jaFezAniversario = hoje.getMonth() > dataNasc.getMonth() ||
+      (hoje.getMonth() === dataNasc.getMonth() && hoje.getDate() >= dataNasc.getDate());
+
+    const idadeFinal = jaFezAniversario ? idade : idade - 1;
+    return dataNasc <= hoje && idadeFinal >= 15;
+  }
+
   private formatarDataNascimento(dataISO: string): string {
     if (!dataISO) return '';
     const partes = dataISO.split('-');
@@ -44,23 +65,40 @@ export class SignupComponent {
     return `${partes[2]}/${partes[1]}/${partes[0]}`;
   }
 
-  async onSubmit() {
-    this.senhasNaoCoincidem = this.senha !== this.confirmarSenha;
-
-    if (this.senhasNaoCoincidem) {
-      alert('As senhas não coincidem.');
+  async onSubmit(form: NgForm) {
+    if (!form.valid) {
+      alert("Por favor, preencha todos os campos corretamente.");
       return;
     }
 
-    const dataFormatada = this.formatarDataNascimento(this.dataNascimento);
+    if (!this.nomeValido()) {
+      alert("Informe seu nome completo (nome e sobrenome).");
+      return;
+    }
+
+    if (!this.emailValido()) {
+      alert("Informe um e-mail válido.");
+      return;
+    }
+
+    if (!this.dataNascimentoValida()) {
+      alert("Informe uma data de nascimento válida. Você deve ter pelo menos 15 anos.");
+      return;
+    }
+
+    if (this.senha !== this.confirmarSenha) {
+      alert("As senhas não coincidem.");
+      return;
+    }
 
     try {
+      const dataFormatada = this.formatarDataNascimento(this.dataNascimento);
       await this.authService.cadastrar(this.nome, this.email, this.senha, dataFormatada);
-      alert('Cadastro realizado com sucesso!');
-      // Após o cadastro bem-sucedido, redireciona para o login
+      alert("Cadastro realizado com sucesso!");
       this.router.navigate(['/login']);
     } catch (error: any) {
-      console.error('Erro ao cadastrar:', error);
+      console.error("Erro ao cadastrar:", error);
+      alert("Falha no cadastro. Por favor, tente novamente.");
     }
   }
 

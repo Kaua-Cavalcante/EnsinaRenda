@@ -170,8 +170,9 @@ form .input-group .show-password input {
   width: 100%;
 }
 
-.password-alert {
-  color: red;
+.error {
+  color: var(--dark-slate-gray-color);
   font-size: 0.875rem;
-  margin-top: 0.25rem;
+  list-style: outside;
+  margin-left: 0.875rem;
 }

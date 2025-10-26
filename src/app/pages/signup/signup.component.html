@@ -2,7 +2,7 @@
 
 <div class="signup">
   <div class="signup-container">
-    <form (ngSubmit)="onSubmit()">
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
       <div class="title-container">
         <img src="assets/icons/logo-icon.svg" alt="Ícone do logo" />
         <h3>Cadastre-se para continuar</h3>
@@ -19,6 +19,7 @@
             [(ngModel)]="nome"
             name="nome"
           />
+          <li *ngIf="nome && !nomeValido()" class="error">Informe nome e sobrenome.</li>
         </div>
 
         <div class="input-group email">
@@ -31,6 +32,7 @@
             [(ngModel)]="email"
             name="email"
           />
+          <li *ngIf="email && !emailValido()" class="error">E-mail inválido.</li>
         </div>
 
         <div class="input-group birthdate">
@@ -42,6 +44,9 @@
             [(ngModel)]="dataNascimento"
             name="dataNascimento"
           />
+          <li *ngIf="dataNascimento && !dataNascimentoValida()" class="error">
+            Informe uma data válida (mínimo 15 anos).
+          </li>
         </div>
 
         <div class="input-group password">
@@ -77,9 +82,9 @@
             [(ngModel)]="confirmarSenha"
             name="confirmarSenha"
           />
-          <div class="password-alert">
-            <p *ngIf="senhasNaoCoincidem">As senhas não coincidem.</p>
-          </div>
+          <li *ngIf="senha && confirmarSenha && senha !== confirmarSenha" class="error">
+            As senhas não coincidem.
+          </li>
         </div>
 
         <button class="create-btn" type="submit">
