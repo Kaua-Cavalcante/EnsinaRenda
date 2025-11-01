@@ -1,6 +1,22 @@
 <div class="lesson-header">
-  <button class="compress-tab" (click)="onToggleAside()">
-    <img [src]="isAsideVisible ? 'assets/icons/panel-left-close.svg' : 'assets/icons/panel-left-open.svg'" alt="Compress Tab Icon" />
-  </button>
-  <h3 class="lesson-title">Fundamentos essenciais</h3>
+  <div class="left-section">
+    <button class="compress-tab" (click)="onToggleAside()">
+      <img
+        [src]="
+          isAsideVisible
+            ? 'assets/icons/panel-left-close.svg'
+            : 'assets/icons/panel-left-open.svg'
+        "
+        alt="Compress Tab Icon"
+      />
+    </button>
+    <h3 class="lesson-title">Fundamentos essenciais</h3>
+  </div>
+
+  <div class="right-section">
+    <button class="logout-btn" (click)="logout()">
+      <img src="../../../../../assets/icons/logout.svg" alt="logout" />
+      <span>sair</span>
+    </button>
+  </div>
 </div>

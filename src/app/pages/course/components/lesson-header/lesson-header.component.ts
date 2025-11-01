@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lesson-header',
@@ -8,8 +9,15 @@ import { Component, EventEmitter, Output, Input } from '@angular/core';
   styleUrls: ['./lesson-header.component.css']
 })
 export class LessonHeaderComponent {
-  @Output() toggleAside = new EventEmitter<void>();
   @Input() isAsideVisible: boolean = true;
+  @Output() toggleAside = new EventEmitter<void>();
+
+  constructor(private router: Router) {}
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
 
   onToggleAside() {
     this.toggleAside.emit();

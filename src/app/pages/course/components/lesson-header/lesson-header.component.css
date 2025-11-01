@@ -2,15 +2,35 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+  justify-content: space-between;
   padding: 1rem;
 }
 
+.left-section {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.right-section .logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .compress-tab img {
-  color: red;
   stroke: currentColor;
 }
 
-.lesson-header .lesson-title {
+.lesson-header .lesson-title, .logout-btn span {
   font-size: 1.125rem;
   font-weight: 400;
+}
+
+img, .right-section button {
+  transition: all .3s;
+
+  &:hover {
+    scale: 1.05;
+  }
 }
