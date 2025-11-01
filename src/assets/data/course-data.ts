@@ -5,8 +5,8 @@ export const COURSE_DATA = [
     introduction: {
       title: 'Introdução',
       contentHtml: `
-        <p>Olá, futuro investidor!</p>
-        <p>Inicialmente, é um prazer tê-lo aqui em nosso curso! Se você nunca ouviu falar sobre renda fixa, não se preocupe: este é o lugar certo para começar. Aqui, vamos desvendar um pouco de um dos caminhos mais populares e seguros para fazer o seu dinheiro trabalhar para você.</p>
+        <p>Olá, futuro(a) investidor(a)!</p>
+        <p>Inicialmente, é um prazer tê-lo(a) aqui em nosso curso! Se você nunca ouviu falar sobre renda fixa, não se preocupe: este é o lugar certo para começar. Aqui, vamos desvendar um pouco de um dos caminhos mais populares e seguros para fazer o seu dinheiro trabalhar para você.</p>
         <p>Você sabia que a renda fixa é, hoje, a porta de entrada para a maioria dos brasileiros no mundo dos investimentos? Entre o segundo trimestre de 2024 e o segundo trimestre de 2025, o número de investidores em renda fixa no Brasil superou a marca de <strong>100 milhões de CPFs</strong>.</p>
         <p>Considerando que o Brasil tem cerca de 210 milhões de habitantes, isso significa que <strong>quase 50% da população investe em renda fixa</strong>!</p>
         <p>Tendo este dado em vista, dá para reparar que muitas pessoas confiam nesse tipo de investimento, não é mesmo? Agora é a sua vez de aprender e começar a investir!</p>

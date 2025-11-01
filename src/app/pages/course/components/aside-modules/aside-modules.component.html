@@ -20,16 +20,26 @@
           [ngClass]="{ show: openedIndex === i, hide: openedIndex !== i }"
         >
           <li
-            *ngFor="let lesson of module.lessons"
-            [ngClass]="{ 'selected': selectedLessonId === lesson.id }"
             class="lesson"
-
+            *ngFor="let lesson of module.lessons"
+            [ngClass]="{
+              selected: selectedLessonId === lesson.id,
+              completed: isLessonCompleted(lesson.id)
+            }"
           >
             <a
               class="lesson-link"
               (click)="onLessonClick(lesson)"
               href="javascript:void(0)"
-              >{{ lesson.title }}</a>
+            >
+              {{ lesson.title }}
+            </a>
+
+            <img
+              src="../../../../../assets/icons/check.svg"
+              alt="check icon"
+              *ngIf="isLessonCompleted(lesson.id)"
+            />
           </li>
         </ul>
       </li>

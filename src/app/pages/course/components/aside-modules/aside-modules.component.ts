@@ -19,10 +19,17 @@ export class AsideModulesComponent implements OnInit {
 
   constructor(private courseService: CourseService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.modules = this.courseService.getModules();
-    const lastLesson = this.courseService.getLastLesson();
-    this.selectedLessonId = lastLesson.id;
+
+    await this.courseService.loadCompletedLessons();
+
+    const firstLesson = this.modules[0]?.lessons[0];
+    if (firstLesson) {
+      this.selectedLessonId = firstLesson.id;
+      this.lessonSelected.emit(firstLesson);
+      this.courseService.selectLesson(firstLesson);
+    }
   }
 
   toggleLessons(index: number) {
@@ -32,5 +39,10 @@ export class AsideModulesComponent implements OnInit {
   onLessonClick(lesson: any) {
     this.selectedLessonId = lesson.id;
     this.lessonSelected.emit(lesson);
+    this.courseService.selectLesson(lesson);
+  }
+
+  isLessonCompleted(id: number): boolean {
+    return this.courseService.isLessonCompleted(id);
   }
 }

@@ -4,15 +4,18 @@
   </div>
 
   <div class="content-container">
-    <div
-      class="lesson-content"
-      [innerHTML]="selectedLesson?.contentHtml"
-    ></div>
+    <div class="lesson-content" [innerHTML]="selectedLesson?.contentHtml"></div>
 
     <div class="btn-container">
-      <button class="conclude-btn" (click)="toggleCompleted()">
-        {{ completed ? "Próxima lição" : "Concluir aula" }}
+      <button
+        class="conclude-btn"
+        (click)="toggleCompleted()"
+        [disabled]="completed"
+      >
+        {{ completed ? "Aula concluída!" : "Concluir aula" }}
       </button>
+
+      <p *ngIf="message" class="feedback">{{ message }}</p>
     </div>
   </div>
 </div>

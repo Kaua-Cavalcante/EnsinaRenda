@@ -33,22 +33,36 @@ export class CourseComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    // Busca a última aula acessada (ou a primeira se não houver)
-    const lastLesson = this.courseService.getLastLesson();
-    this.courseService.selectLesson({ ...lastLesson });
-
+  async ngOnInit() {
     this.HeaderService.updateHeader({
       showLogin: false,
       showRegister: false,
       showNavigation: false
     });
+
+    await this.courseService.loadCompletedLessons();
+
+    const lastLesson = this.courseService.getLastLesson();
+
+    if (lastLesson) {
+      this.selectedLesson = lastLesson;
+      this.courseService.selectLesson(lastLesson);
+    } else {
+      // Se não houver, seleciona a primeira aula do primeiro módulo
+      const firstLesson = this.modules[0]?.lessons[0];
+      if (firstLesson) {
+        this.selectedLesson = firstLesson;
+        this.courseService.selectLesson(firstLesson);
+      }
+    }
+
     // Inicializa o estado baseado na URL atual
     this.showAssessment = this.router.url.includes('/course/prova');
   }
 
   onLessonSelected(lesson: any) {
-    this.courseService.selectLesson({ ...lesson });
+    this.selectedLesson = lesson;
+    this.courseService.selectLesson(lesson);
   }
 
 
