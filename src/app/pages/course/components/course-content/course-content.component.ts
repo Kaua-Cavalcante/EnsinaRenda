@@ -1,21 +1,34 @@
-import { Component } from '@angular/core';
+import { NgIf } from "@angular/common";
+import { Component, Input } from '@angular/core';
+import { CourseService } from '../../../../services/course.service';
 
 @Component({
   selector: 'app-course-content',
   standalone: true,
-  imports: [],
+  imports: [NgIf],
   templateUrl: './course-content.component.html',
   styleUrl: './course-content.component.css'
 })
 export class CourseContentComponent {
-  Completed: boolean = false;
-  NextLesson: boolean = false;
+  @Input() lesson: any;
+
+  @Input() selectedLesson: any = null;
+  completed: boolean = false;
+  nextLesson: boolean = false;
+
+  constructor(private courseService: CourseService) { }
+
+  ngOnInit() {
+    this.courseService.selectedLesson$.subscribe((lesson) => {
+      this.selectedLesson = lesson;
+    });
+  }
 
   toggleCompleted() {
-    if (this.Completed) {
-      this.NextLesson = true;
+    if (this.completed) {
+      this.nextLesson = true;
     } else {
-      this.Completed = true;
+      this.completed = true;
     }
   }
 }

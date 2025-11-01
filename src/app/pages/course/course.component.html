@@ -1,11 +1,13 @@
 <div class="course-container" [class.aside-hidden]="!IsAsideVisible">
   <div class="aside">
-    <app-aside-modules *ngIf="IsAsideVisible" (testSelected)="onTestSelected($event)"></app-aside-modules>
+    <app-aside-modules *ngIf="IsAsideVisible" (lessonSelected)="onLessonSelected($event)"></app-aside-modules>
   </div>
+
   <div class="header">
     <app-lesson-header [isAsideVisible]="IsAsideVisible" (toggleAside)="toggleAside()"></app-lesson-header>
   </div>
+  
   <main class="course-content">
-    <router-outlet></router-outlet>
+    <app-course-content [selectedLesson]="selectedLesson"></app-course-content>
   </main>
 </div>

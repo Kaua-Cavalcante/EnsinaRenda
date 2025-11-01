@@ -13,15 +13,6 @@
             </h3>
             <img src="assets/icons/arrow-down.svg" alt="seta para baixo" />
           </div>
-          <div class="progress-container">
-            <div class="progress-bar">
-              <div
-                class="progress-fill"
-                [style.width.%]="module.progress"
-              ></div>
-            </div>
-            <span class="percentage">{{ module.progress }}%</span>
-          </div>
         </div>
 
         <ul
@@ -29,20 +20,16 @@
           [ngClass]="{ show: openedIndex === i, hide: openedIndex !== i }"
         >
           <li
-            class="lesson {{ lesson.selected ? 'selected' : '' }}"
             *ngFor="let lesson of module.lessons"
+            [ngClass]="{ 'selected': selectedLessonId === lesson.id }"
+            class="lesson"
+
           >
             <a
               class="lesson-link"
               (click)="onLessonClick(lesson)"
               href="javascript:void(0)"
-              >{{ lesson.title }}</a
-            >
-            <img
-              src="assets/icons/check.svg"
-              alt="check icon"
-              *ngIf="lesson.completed"
-            />
+              >{{ lesson.title }}</a>
           </li>
         </ul>
       </li>
