@@ -23,3 +23,8 @@
 <ng-template #noLesson>
   <p>Selecione uma aula no menu lateral para começar.</p>
 </ng-template>
+
+<div *ngIf="loadingProva" class="global-loading">
+  <div class="spinner"></div>
+  <p>Gerando sua prova, aguarde...</p>
+</div>

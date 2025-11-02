@@ -19,7 +19,7 @@ export class CourseService {
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   getModules() {
-    return this.modules;
+    return COURSE_DATA;
   }
 
   selectLesson(lesson: any) {
@@ -58,6 +58,20 @@ export class CourseService {
     if (!this.completedLessons.includes(id)) {
       this.completedLessons.push(id)
     }
+  }
+
+  isModuleCompleted(moduleId: number): boolean {
+    const module = this.modules.find((m) => m.id === moduleId);
+    if (!module) return false;
+    return module.lessons.every((l: any) => this.isLessonCompleted(l.id));
+  }
+
+  generateTest(idModulo: string) {
+    const token = this.authService.getToken();
+    const url = `${environment.apiUrl}/v1/prova/gerar`;
+    return this.http.post(url, { idModulo }, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
   }
 
   getLastLesson() {

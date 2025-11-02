@@ -1,5 +1,6 @@
 import { NgIf } from "@angular/common";
 import { Component, Input } from '@angular/core';
+import { Router } from "@angular/router";
 import { CourseService } from '../../../../services/course.service';
 import { LessonService } from "../../../../services/lesson.service";
 
@@ -11,15 +12,17 @@ import { LessonService } from "../../../../services/lesson.service";
   styleUrl: './course-content.component.css'
 })
 export class CourseContentComponent {
-  @Input() lesson: any;
   @Input() selectedLesson: any = null;
+  @Input() lesson: any;
   completed = false;
   message = '';
-
+  moduleCompleted = false;
+  loadingProva = false;
 
   constructor(
     private courseService: CourseService,
-    private lessonService: LessonService
+    private lessonService: LessonService,
+    private router: Router
   ) { }
 
   async ngOnInit() {
@@ -27,6 +30,7 @@ export class CourseContentComponent {
       this.selectedLesson = lesson;
       this.completed = lesson ? this.courseService.isLessonCompleted(lesson.id) : false; // reseta botão
       this.message = '';
+      this.checkModuleCompletion()
     });
   }
 
@@ -50,5 +54,14 @@ export class CourseContentComponent {
     });
   }
 
+  checkModuleCompletion() {
+    if (!this.selectedLesson?.moduleId) {
+      console.warn('⚠️ Aula sem moduleId:', this.selectedLesson);
+      return
+    }
+    const moduleCompleted = this.courseService.isModuleCompleted(this.selectedLesson.moduleId);
+    console.log('🔍 Módulo', this.selectedLesson.moduleId, 'completo?', moduleCompleted);
 
+    this.moduleCompleted = moduleCompleted;
+  }
 }

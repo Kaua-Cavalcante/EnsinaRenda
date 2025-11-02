@@ -42,7 +42,18 @@
             />
           </li>
         </ul>
+        <div class="finish-module-container" *ngIf="isModuleCompleted(module)">
+          <button
+            class="finish-module-btn"
+            (click)="finishModule(module)"
+            [disabled]="generatingTest"
+          >
+            <span *ngIf="!generatingTest">Concluir módulo</span>
+            <span *ngIf="generatingTest">Gerando prova...</span>
+          </button>
+        </div>
       </li>
     </ul>
+
   </nav>
 </aside>
