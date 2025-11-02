@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { sha256 } from '../utils/hash.util';
 import { isTokenExpired } from '../utils/jwt.util';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = "http://localhost:8081/v1/aluno";
+  private apiUrl = `${environment.apiUrl}/v1/aluno`;
 
   constructor(private http: HttpClient) { }
 

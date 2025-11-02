@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { COURSE_DATA } from '../../assets/data/course-data';
+import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -13,7 +14,7 @@ export class CourseService {
   selectedLesson$ = this.selectedLessonSource.asObservable();
 
   private completedLessons: number[] = [];
-  private apiUrl = 'http://localhost:8081/v1/aluno/aulas';
+  private apiUrl = `${environment.apiUrl}/v1/aluno/aulas`;
   
   constructor(private http: HttpClient, private authService: AuthService) { }
 

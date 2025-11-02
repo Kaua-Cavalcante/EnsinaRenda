@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LessonService {
-  private apiUrl = 'http://localhost:8081/v1/aluno/aula';
+  private apiUrl = `${environment.apiUrl}/v1/aluno/aula`;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
