@@ -15,6 +15,9 @@ export class CourseService {
 
   private completedLessons: number[] = [];
   private apiUrl = `${environment.apiUrl}/v1/aluno/aulas`;
+  // Estado compartilhado para indicar geração de prova em andamento
+  private generatingSubject = new BehaviorSubject<boolean>(false);
+  generating$ = this.generatingSubject.asObservable();
   
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -68,10 +71,23 @@ export class CourseService {
 
   generateTest(idModulo: string) {
     const token = this.authService.getToken();
+    if (!token) {
+      console.error('Token não encontrado');
+      throw new Error('Usuário não autenticado');
+    }
+    
     const url = `${environment.apiUrl}/v1/prova/gerar`;
     return this.http.post(url, { idModulo }, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
     });
+  }
+
+  // Permite componentes acionarem o overlay/global loading de geração de prova
+  setGenerating(flag: boolean) {
+    this.generatingSubject.next(flag);
   }
 
   getLastLesson() {

@@ -41,17 +41,20 @@
               *ngIf="isLessonCompleted(lesson.id)"
             />
           </li>
+          
+          <!-- Botão de concluir módulo colocado como último item da lista de aulas
+               para que ele compacte junto com as aulas quando o módulo for recolhido. -->
+          <li class="finish-module-item" *ngIf="isModuleCompleted(module)">
+            <button
+              class="finish-module-btn"
+              (click)="finishModule(module)"
+              [disabled]="generatingTest"
+            >
+              <span *ngIf="!generatingTest">Concluir módulo</span>
+              <span *ngIf="generatingTest">Gerando prova...</span>
+            </button>
+          </li>
         </ul>
-        <div class="finish-module-container" *ngIf="isModuleCompleted(module)">
-          <button
-            class="finish-module-btn"
-            (click)="finishModule(module)"
-            [disabled]="generatingTest"
-          >
-            <span *ngIf="!generatingTest">Concluir módulo</span>
-            <span *ngIf="generatingTest">Gerando prova...</span>
-          </button>
-        </div>
       </li>
     </ul>
 

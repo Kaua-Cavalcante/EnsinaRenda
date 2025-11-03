@@ -1,17 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { COURSE_DATA } from '../../../assets/data/course-data';
 import { CourseService } from '../../services/course.service';
 import { HeaderService } from '../../services/header.service';
 import { AsideModulesComponent } from './components/aside-modules/aside-modules.component';
-import { CourseContentComponent } from './components/course-content/course-content.component';
 import { LessonHeaderComponent } from './components/lesson-header/lesson-header.component';
 
 @Component({
   selector: 'app-course',
   standalone: true,
-  imports: [AsideModulesComponent, LessonHeaderComponent, CommonModule, RouterModule, CourseContentComponent],
+  imports: [AsideModulesComponent, LessonHeaderComponent, CommonModule, RouterModule, RouterOutlet],
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css']
 })
@@ -22,9 +21,9 @@ export class CourseComponent implements OnInit {
   showAssessment: boolean = false;
 
   constructor(
-    private HeaderService: HeaderService,
-    private router: Router,
-    private courseService: CourseService
+  private HeaderService: HeaderService,
+  private router: Router,
+  public courseService: CourseService
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

@@ -39,6 +39,25 @@ export class AsideModulesComponent implements OnInit {
   }
 
   onLessonClick(lesson: any) {
+    // If user is currently viewing the assessment, confirm before leaving
+    const inAssessment = this.router.url.includes('/course/prova');
+
+    if (inAssessment) {
+      const confirmLeave = window.confirm(
+        'Tem certeza que quer sair da prova? Todo o progresso será perdido.'
+      );
+
+      if (!confirmLeave) return;
+
+      // Navigate back to the course content, then select the lesson
+      this.router.navigate(['/course']).then(() => {
+        this.selectedLessonId = lesson.id;
+        this.lessonSelected.emit(lesson);
+        this.courseService.selectLesson(lesson);
+      });
+      return;
+    }
+
     this.selectedLessonId = lesson.id;
     this.lessonSelected.emit(lesson);
     this.courseService.selectLesson(lesson);
@@ -64,25 +83,42 @@ export class AsideModulesComponent implements OnInit {
     }
 
     this.generatingTest = true;
+    this.courseService.setGenerating(true);
 
-    this.courseService.generateTest(String(module.id)).subscribe({
-      next: (res: any) => {
-        // Ajuste conforme formato de resposta da API
-        if (res?.sucesso || res?.success) {
-          // navega para a prova que será renderizada dentro do layout /course
-          this.router.navigate(['/course/prova']);
-        } else {
-          const msg = res?.mensagem || res?.message || 'Erro ao gerar prova.';
-          alert(msg);
+    try {
+      this.courseService.generateTest(String(module.id)).subscribe({
+        next: (res: any) => {
+          if (res?.sucesso || res?.success) {
+            this.router.navigate(['/course/prova']);
+          } else {
+            const msg = res?.mensagem || res?.message || 'Erro ao gerar prova.';
+            alert(msg);
+          }
+        },
+        error: (err: any) => {
+          console.error('Erro ao gerar prova:', err);
+          if (err.status === 401) {
+            alert('Sessão expirada. Por favor, faça login novamente.');
+            this.router.navigate(['/login']);
+          } else {
+            const errorMessage = err.error?.message || err.error?.error?.message || 'Erro ao gerar prova. Tente novamente.';
+            alert(errorMessage);
+          }
+        },
+        complete: () => {
+          this.generatingTest = false;
+          this.courseService.setGenerating(false);
         }
-      },
-      error: (err: any) => {
-        console.error('Erro ao gerar prova:', err);
+      });
+    } catch (error: any) {
+      this.generatingTest = false;
+      this.courseService.setGenerating(false);
+      if (error.message === 'Usuário não autenticado') {
+        alert('Sessão expirada. Por favor, faça login novamente.');
+        this.router.navigate(['/login']);
+      } else {
         alert('Erro ao gerar prova. Tente novamente.');
-      },
-      complete: () => {
-        this.generatingTest = false;
       }
-    });
+    }
   }
 }

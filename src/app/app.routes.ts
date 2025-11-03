@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
+import { ConfirmExitGuard } from './guards/confirm-exit.guard';
 import { AssessmentTestComponent } from './pages/course/components/assessment-test/assessment-test.component';
 import { CourseContentComponent } from './pages/course/components/course-content/course-content.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
@@ -20,7 +21,7 @@ export const routes: Routes = [
         canActivate: [authGuard],
         children: [
             { path: '', title: 'Curso Renda Fixa', component: CourseContentComponent },
-            { path: 'prova', title: 'Prova Renda Fixa', component: AssessmentTestComponent }
+            { path: 'prova', title: 'Prova Renda Fixa', component: AssessmentTestComponent, canDeactivate: [ConfirmExitGuard] }
         ]
     },
 ];
