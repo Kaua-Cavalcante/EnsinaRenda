@@ -1,30 +1,39 @@
-<div class="title-container">
-  <h2 class="title">2. Teste de Avaliação</h2>
+<div *ngIf="loading" class="content-container">
+  <div class="global-loading">
+    <div class="spinner"></div>
+    <p>Carregando prova...</p>
+  </div>
 </div>
-<div class="content-container">
-  <div class="question-group">
-    <h3 class="question-title">Pergunta 1</h3>
-    <p class="question-text">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua?
-    </p>
-    <div class="options-container">
-      <label class="option">
-        <input type="radio" name="question1" value="a" />
-        <span class="option-text">Opção A</span>
-      </label>
-      <label class="option">
-        <input type="radio" name="question1" value="b" />
-        <span class="option-text">Opção B</span>
-      </label>
-      <label class="option">
-        <input type="radio" name="question1" value="c" />
-        <span class="option-text">Opção C</span>
-      </label>
-      <label class="option">
-        <input type="radio" name="question1" value="d" />
-        <span class="option-text">Opção D</span>
-      </label>
+
+<div *ngIf="!loading && error" class="content-container">
+  <p class="feedback">{{ error }}</p>
+</div>
+
+<div *ngIf="!loading && test" class="content-container">
+  <div class="title-container">
+    <h2 class="title">{{ test.titulo_prova || 'Prova' }}</h2>
+  </div>
+
+  <div class="questions">
+    <div class="question-group" *ngFor="let q of test.questoes">
+      <h3 class="question-title">{{ q.numQuestao }}. {{ q.enunciado }}</h3>
+      <div class="options-container">
+        <label class="option" *ngFor="let opt of q.opcoes; let idx = index">
+          <input
+            type="radio"
+            [name]="'q' + q.numQuestao"
+            [value]="idx"
+            (change)="answers[q.numQuestao] = idx"
+            [checked]="answers[q.numQuestao] === idx"
+          />
+          <span class="option-text">{{ opt }}</span>
+        </label>
+      </div>
     </div>
+  </div>
+
+  <!-- Placeholder submit: implement scoring later -->
+  <div class="btn-container">
+  <button class="exam-btn" (click)="submitAnswers()">Enviar respostas</button>
   </div>
 </div>

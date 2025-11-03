@@ -88,8 +88,8 @@ export class AsideModulesComponent implements OnInit {
     try {
       this.courseService.generateTest(String(module.id)).subscribe({
         next: (res: any) => {
-          if (res?.sucesso || res?.success) {
-            this.router.navigate(['/course/prova']);
+            if (res?.sucesso || res?.success) {
+            this.router.navigate(['/course/prova'], { queryParams: { idModulo: module.id } });
           } else {
             const msg = res?.mensagem || res?.message || 'Erro ao gerar prova.';
             alert(msg);
