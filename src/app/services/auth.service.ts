@@ -66,6 +66,13 @@ export class AuthService {
     return true;
   }
 
+  // Envia solicitação de redefinição de senha para o backend
+  // Body esperado: { "email": "user@example.com" }
+  async requestPasswordReset(email: string) {
+    const body = { email };
+    return this.http.post(`${environment.apiUrl}/v1/reset/senha`, body).toPromise();
+  }
+
   // Obtém o token salvo
   getToken(): string | null {
     return localStorage.getItem('token');
