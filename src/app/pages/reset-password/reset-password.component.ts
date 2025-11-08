@@ -1,18 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { FooterService } from '../../services/footer.service';
 import { HeaderService } from '../../services/header.service';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { sha256 } from '../../utils/hash.util';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, FormsModule, RouterLink, CommonModule],
+  imports: [HeaderComponent, FooterComponent, FormsModule, CommonModule],
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.css']
 })
