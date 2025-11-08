@@ -17,6 +17,7 @@ export const COURSE_DATA = [
         id: 1,
         title: 'Aula 1 - O Que é Renda Fixa e Por Que Ela Importa?',
         contentHtml: `
+        <div class="contentHtml">
           <h3 class="subtitle">O Conceito Fundamental: O que é a “Renda Fixa”</h3>
           <p>Para entender a Renda Fixa da forma mais simples possível, pense nela como um <strong>“empréstimo ao contrário”</strong>, onde você é o banco.</p>
           <p>Quando você solicita um empréstimo, o banco lhe empresta dinheiro e, em troca, você o devolve com juros, certo?</p>
@@ -28,12 +29,15 @@ export const COURSE_DATA = [
           </ul>
           <p>Em troca do seu "empréstimo", eles se comprometem a devolver todo o seu dinheiro no futuro, com juros acrescentados ao valor. Esse valor em juros é o seu lucro, a rentabilidade do seu investimento! </p>
           <p>É por isso que o nome é "Renda Fixa": as regras de como seu dinheiro vai render (a taxa de juros) são <strong>fixadas</strong> e combinadas desde o início. Você já investe sabendo como o seu retorno será calculado, o que traz muito mais <strong>previsibilidade e segurança.</strong></p>
+        </div>
         `,
       },
       {
         id: 2,
         title: 'Aula 2 - Renda Fixa versus Renda Variável',
         contentHtml: `
+        <div class="contentHtml">
+          <h3 class="subtitle">Como escolher entre previsibilidade e oportunidade de valorização.</h3>
           <p>Agora que sabemos como funciona a renda fixa, ficará mais simples compreender a lógica da alternativa de investimentos: a Renda Variável </p>
           <p>Na renda variável, você não empresta o dinheiro, mas sim <strong>torna-se sócio</strong> de algum negócio. É como se você comprasse um pedaço de uma empresa e participasse dos lucros. <strong>Quando a empresa lucra, todos os investidores ganham uma parte dos lucros;</strong> mas, <strong>quando a empresa tem déficits, você perde uma parte do capital investido.</strong> </p>
           <p>Vamos deixar isso um pouco mais claro em uma tabela que resume os dois tipos de investimento:</p>
@@ -55,12 +59,14 @@ export const COURSE_DATA = [
           <p>(Cenário ótimo) – O bolo ficou incrível! Todo mundo que passa por vocês dois quer comprar um pedaço do bolo para provar, e vendem por um valor altíssimo. Como sócio, os lucros obtidos da venda serão distribuídos, e você vai receber um retorno maior. </p>
           <p>(Cenário “ok”) – O bolo fica bom, mas não incrível. Vocês conseguem vender algumas fatias, mas o lucro é pequeno. Como o lucro é pequeno, os dois vão acabar recebendo menos retorno. </p>
           <p>(Cenário péssimo) – O bolo queimou no forno! Não há bolo para dividir e nem para vender. E a farinha que você deu? Ela foi usada e perdida no processo. Você não recebe nada de volta, nem mesmo a farinha que investiu. Você perdeu seu capital inicial. </p>
+        </div>
         `,
       },
       {
         id: 3,
         title: 'Aula 3 - As Três Engrenagens de um Título',
         contentHtml: `
+        <div class="contentHtml">
           <p>Pense em um investimento como uma máquina com <strong>três engrenagens principais</strong> Se você entender como cada uma delas funciona, você será capaz de analisar e entender qualquer título de Renda Fixa que encontrar pela frente. Os três pontos são: <strong>Rentabilidade, Prazo e Liquidez.</strong></p>
 
           <h4>Engrenagem 1: Rentabilidade (Como o dinheiro cresce?)</h4>
@@ -103,6 +109,7 @@ export const COURSE_DATA = [
           
 
           <p>Com isso, você entende como analisar qualquer título de Renda Fixa!</p>
+        </div>  
         `,
       },
     ],

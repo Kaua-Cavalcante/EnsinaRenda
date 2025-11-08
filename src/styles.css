@@ -1,16 +1,17 @@
 :root {
-  --primary-color: #3078B3;
-  --bg-color-1: #C2E3FF;
+  --primary-color: #3078b3;
+  --bg-color-1: #c2e3ff;
   --bg-color-2: #becedb;
-  --green-color: #FAFFC2;
-  --medium-green-color: #CAE066;
-  --high-green-color: #A3C940;
-  --body-font-color: #1E2124;
+  --green-color: #faffc2;
+  --medium-green-color: #cae066;
+  --high-green-color: #a3c940;
+  --body-font-color: #1e2124;
   --gray-color: #898989;
-  --light-gray-color: #F6F7F9;
-  --slate-gray-color: #637B91;
-  --dark-slate-gray-color: #4B6D91;
+  --light-gray-color: #f6f7f9;
+  --slate-gray-color: #637b91;
+  --dark-slate-gray-color: #4b6d91;
   --dark-red-color: #982727;
+  --strong-color: #0e1824;
 }
 
 * {
@@ -36,3 +37,74 @@ button {
   background: none;
 }
 
+.contentHtml {
+  padding: 2rem;
+}
+
+.contentHtml .subtitle {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: var(--strong-color);
+}
+
+.contentHtml p {
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+}
+
+.contentHtml ul {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.contentHtml li {
+  list-style: disc;
+}
+
+.contentHtml table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  text-align: left;
+  font-size: 1rem;
+  background-color: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(13, 110, 253, 0.05);
+}
+
+.contentHtml th {
+  background-color: var(--slate-gray-color); /* azul moderno (pode ajustar para o tema da marca) */
+  color: #fff;
+  padding: 1rem 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.contentHtml td {
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid #f0f4fa;
+  color: var(--body-font-color);
+  line-height: 1.6;
+}
+
+.contentHtml tr {
+  background-color: var(--light-gray-color);
+}
+
+.contentHtml td:nth-child(2) {
+  background-color: #e9fff0;
+  border-left: 4px solid #4caf50;
+}
+
+.contentHtml td:nth-child(3) {
+  background-color: #fff8e1;
+  border-left: 4px solid #fdd835;
+}
+
+.contentHtml strong {
+  color: var(--strong-color);
+}
