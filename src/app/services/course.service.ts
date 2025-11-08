@@ -102,6 +102,28 @@ export class CourseService {
     });
   }
 
+  // Envia a prova respondida para correção
+  submitAnsweredTest(idModulo: string, provaRespondida: string) {
+    const token = this.authService.getToken();
+    if (!token) {
+      console.error('Token não encontrado');
+      throw new Error('Usuário não autenticado');
+    }
+
+    const url = `${environment.apiUrl}/v1/prova/corrigir`;
+    const body = {
+      idModulo,
+      provaRespondida
+    };
+
+    return this.http.post(url, body, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
   // Permite componentes acionarem o overlay/global loading de geração de prova
   setGenerating(flag: boolean) {
     this.generatingSubject.next(flag);

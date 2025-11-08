@@ -14,8 +14,12 @@
     <h2 class="title">{{ test.titulo_prova || 'Prova' }}</h2>
   </div>
 
+  <div *ngIf="validationMessage" class="validation-toast" role="alert">
+    {{ validationMessage }}
+  </div>
+
   <div class="questions">
-    <div class="question-group" *ngFor="let q of test.questoes">
+    <div class="question-group" *ngFor="let q of test.questoes" #questionGroup [attr.data-num]="q.numQuestao" [class.unanswered]="attemptedSubmit && isUnanswered(q.numQuestao)">
       <h3 class="question-title">{{ q.numQuestao }}. {{ q.enunciado }}</h3>
       <div class="options-container">
         <label class="option" *ngFor="let opt of q.opcoes; let idx = index">
@@ -34,6 +38,13 @@
 
   <!-- Placeholder submit: implement scoring later -->
   <div class="btn-container">
-  <button class="exam-btn" (click)="submitAnswers()">Enviar respostas</button>
+    <button class="exam-btn" (click)="submitAnswers()" [disabled]="submitting">
+      <span *ngIf="!submitting">Enviar respostas</span>
+      <span *ngIf="submitting">Enviando...</span>
+    </button>
+  </div>
+
+  <div *ngIf="submitResult" class="submit-result">
+    <pre *ngIf="submitResult | json">{{ submitResult | json }}</pre>
   </div>
 </div>

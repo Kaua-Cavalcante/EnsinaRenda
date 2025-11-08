@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '../../../../services/course.service';
 
@@ -10,12 +10,18 @@ import { CourseService } from '../../../../services/course.service';
   templateUrl: './assessment-test.component.html',
   styleUrl: './assessment-test.component.css'
 })
-export class AssessmentTestComponent implements OnInit {
+export class AssessmentTestComponent implements OnInit, OnDestroy {
+  @ViewChildren('questionGroup') questionGroups!: QueryList<ElementRef>;
   moduleId: string | null = null;
   loading = true;
   error = '';
   test: any = null;
   answers: Record<number, number> = {};
+  submitting: boolean = false;
+  submitResult: any = null;
+  attemptedSubmit: boolean = false;
+  validationMessage: string = '';
+  private _validationTimeout: any = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +40,44 @@ export class AssessmentTestComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  private focusFirstUnanswered(num: number) {
+    // small timeout so view is stable before querying elements
+    setTimeout(() => {
+      if (!this.questionGroups || this.questionGroups.length === 0) return;
+      const groups = this.questionGroups.toArray();
+      for (const g of groups) {
+        const el = g.nativeElement as HTMLElement;
+        const dataNum = el.getAttribute('data-num') ?? (el.dataset ? el.dataset['num'] : null);
+        if (String(dataNum) === String(num)) {
+          try {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } catch (e) { /* ignore */ }
+
+          // focus the first radio input inside this question group
+          const input = el.querySelector('input[type="radio"]') as HTMLElement | null;
+          if (input && typeof (input as any).focus === 'function') {
+            (input as any).focus();
+          } else {
+            // fallback: focus the container
+            try { el.focus(); } catch (e) { /* ignore */ }
+          }
+          break;
+        }
+      }
+    }, 50);
+  }
+
+  ngOnDestroy(): void {
+    if (this._validationTimeout) {
+      clearTimeout(this._validationTimeout);
+      this._validationTimeout = null;
+    }
+  }
+
+  isUnanswered(num: number): boolean {
+    return this.answers[num] === undefined || this.answers[num] === null;
   }
 
   loadTest(id: string) {
@@ -66,8 +110,64 @@ export class AssessmentTestComponent implements OnInit {
   }
 
   submitAnswers() {
-    console.log('Respostas:', this.answers);
-    // scoring can be implemented later: compare this.answers with test.questoes[].resposta_correta
+    if (!this.moduleId || !this.test) return;
+
+    // mark that user attempted to submit — used to display unanswered highlights
+    this.attemptedSubmit = true;
+
+    // Validation: ensure the user answered all questions
+    const questionNums: number[] = (this.test.questoes || []).map((q: any) => q.numQuestao);
+    const firstMissing = questionNums.find((n) => this.answers[n] === undefined || this.answers[n] === null);
+    if (firstMissing !== undefined) {
+      // show transient validation toast and focus
+      this.validationMessage = `Por favor responda a pergunta ${firstMissing}.`;
+      // clear any previous timeout
+      if (this._validationTimeout) {
+        clearTimeout(this._validationTimeout);
+      }
+      this._validationTimeout = setTimeout(() => {
+        this.validationMessage = '';
+        this._validationTimeout = null;
+      }, 4000);
+
+      // focus the first unanswered question
+      this.focusFirstUnanswered(firstMissing);
+      return;
+    }
+
+    // build provaRespondida object
+    const provaRespondidaObj: any = {
+      titulo_prova: this.test.titulo_prova || this.test.titulo || null,
+      questoes_respondidas: (this.test.questoes || []).map((q: any) => ({
+        numQuestao: q.numQuestao,
+        enunciado: q.enunciado,
+        opcoes: q.opcoes,
+        resposta_usuario: typeof this.answers[q.numQuestao] === 'number' ? this.answers[q.numQuestao] : null
+      }))
+    };
+
+    const bodyStr = JSON.stringify(provaRespondidaObj, null, 2);
+
+  // clear any previous validation error and prepare sending
+  // user provided all answers so remove the attempted highlight
+  this.attemptedSubmit = false;
+  this.error = '';
+  this.submitting = true;
+  this.submitResult = null;
+
+    this.courseService.submitAnsweredTest(this.moduleId, bodyStr).subscribe({
+      next: (res: any) => {
+        this.submitResult = res;
+        // show server message if present
+      },
+      error: (err) => {
+        console.error('Erro ao enviar prova respondida:', err);
+        this.submitResult = { error: err?.error || err };
+      },
+      complete: () => {
+        this.submitting = false;
+      }
+    });
   }
 
 }

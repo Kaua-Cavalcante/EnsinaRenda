@@ -17,6 +17,34 @@
 
 .content-container {
   margin-bottom: 20px;
-  padding: 2rem;
+}
+
+.question-group {
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.question-group.unanswered {
+  background-color: #ffdddd;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.08);
+}
+
+.question-group:focus {
+  outline: none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.validation-toast {
+  position: fixed;
+  top: 84px;
+  right: 24px;
+  z-index: 2000;
+  background: #ffcecee2;
+  color: #B40000;
+  border: 1px solid #FFCECE;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+  font-weight: 600;
 }
 
