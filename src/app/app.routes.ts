@@ -14,7 +14,7 @@ export const routes: Routes = [
     { path: 'signup', title: 'Cadastre-se', component: SignupComponent },
     { path: 'login', title: 'Bem-vindo de volta', component: LoginComponent },
     { path: 'forgot-password', title: 'Esqueci a senha', component: ForgotPasswordComponent },
-    { path: 'reset-password', title: 'Redefinir senha', component: ResetPasswordComponent },
+    { path: 'reset', title: 'Redefinir senha', component: ResetPasswordComponent },
     { 
         path: 'course',
         loadComponent: () => import('./pages/course/course.component').then(m => m.CourseComponent),

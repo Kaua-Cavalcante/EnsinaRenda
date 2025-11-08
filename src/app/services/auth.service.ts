@@ -66,6 +66,20 @@ export class AuthService {
     return true;
   }
 
+  // Envia solicitação de redefinição de senha para o backend
+  // Body esperado: { "email": "user@example.com" }
+  async requestPasswordReset(email: string) {
+    const body = { email };
+    return this.http.post(`${environment.apiUrl}/v1/reset/senha`, body).toPromise();
+  }
+
+  // Atualiza a senha do usuário usando o token recebido por e-mail
+  // Body esperado: { token: string, senha: string(hashed) }
+  async updatePassword(token: string, senhaHash: string) {
+    const body = { token, senha: senhaHash };
+    return this.http.put(`${this.apiUrl}/senha`, body).toPromise();
+  }
+
   // Obtém o token salvo
   getToken(): string | null {
     return localStorage.getItem('token');
