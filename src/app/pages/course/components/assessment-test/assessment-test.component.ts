@@ -19,6 +19,7 @@ export class AssessmentTestComponent implements OnInit, OnDestroy {
   answers: Record<number, number> = {};
   submitting: boolean = false;
   submitResult: any = null;
+  correctedTest: any = null;
   attemptedSubmit: boolean = false;
   validationMessage: string = '';
   private _validationTimeout: any = null;
@@ -158,7 +159,43 @@ export class AssessmentTestComponent implements OnInit, OnDestroy {
     this.courseService.submitAnsweredTest(this.moduleId, bodyStr).subscribe({
       next: (res: any) => {
         this.submitResult = res;
-        // show server message if present
+        // after submitting, try fetching the corrected test (feedback)
+        if (this.moduleId) {
+          this.courseService.getCorrectedTest(this.moduleId).subscribe({
+            next: (corrRes: any) => {
+              try {
+                const corrStr = corrRes?.provaCorrigida;
+                if (corrStr) {
+                  // API returns provaCorrigida as a JSON string
+                  this.correctedTest = JSON.parse(corrStr);
+
+                  // Attach corrected feedback to each question in the current test
+                  if (this.test && Array.isArray(this.test.questoes) && this.correctedTest && Array.isArray(this.correctedTest.questoes_corrigidas)) {
+                    const map = new Map<number, any>();
+                    for (const cq of this.correctedTest.questoes_corrigidas) {
+                      map.set(Number(cq.numQuestao), cq);
+                    }
+
+                    for (const q of this.test.questoes) {
+                      const corr = map.get(Number(q.numQuestao));
+                      // attach under a non-conflicting property
+                      (q as any).corrected = corr ?? null;
+                    }
+                  }
+                } else {
+                  this.correctedTest = null;
+                }
+              } catch (e) {
+                console.error('Erro ao parsear prova corrigida:', e);
+                this.correctedTest = null;
+              }
+            },
+            error: (err) => {
+              console.error('Erro ao buscar prova corrigida:', err);
+              this.correctedTest = null;
+            }
+          });
+        }
       },
       error: (err) => {
         console.error('Erro ao enviar prova respondida:', err);

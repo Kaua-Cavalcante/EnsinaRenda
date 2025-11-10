@@ -19,7 +19,7 @@
   </div>
 
   <div class="questions">
-    <div class="question-group" *ngFor="let q of test.questoes" #questionGroup [attr.data-num]="q.numQuestao" [class.unanswered]="attemptedSubmit && isUnanswered(q.numQuestao)">
+  <div class="question-group" *ngFor="let q of test.questoes" #questionGroup [attr.data-num]="q.numQuestao" [class.unanswered]="attemptedSubmit && isUnanswered(q.numQuestao)" [class.corrected]="q.corrected">
       <h3 class="question-title">{{ q.numQuestao }}. {{ q.enunciado }}</h3>
       <div class="options-container">
         <label class="option" *ngFor="let opt of q.opcoes; let idx = index">
@@ -29,9 +29,27 @@
             [value]="idx"
             (change)="answers[q.numQuestao] = idx"
             [checked]="answers[q.numQuestao] === idx"
+            [disabled]="q.corrected"
           />
           <span class="option-text">{{ opt }}</span>
         </label>
+      </div>
+
+      <!-- Per-question corrected feedback (shown after server returns correction) -->
+      <div *ngIf="q.corrected" class="question-feedback">
+        <ul class="options-corrected">
+          <li *ngFor="let opt of q.corrected.opcoes; let idx = index"
+              [class.correct]="idx === q.corrected.resposta_correta"
+              [class.user-answer]="idx === q.corrected.resposta_usuario">
+            <strong *ngIf="idx === q.corrected.resposta_correta">(Correta) </strong>
+            <strong *ngIf="idx === q.corrected.resposta_usuario && idx !== q.corrected.resposta_correta">(Sua resposta) </strong>
+            {{ opt }}
+          </li>
+        </ul>
+
+        <div class="feedback-text" style="white-space: pre-wrap; margin-top:8px;">
+          {{ q.corrected.feedback }}
+        </div>
       </div>
     </div>
   </div>
@@ -44,7 +62,26 @@
     </button>
   </div>
 
-  <div *ngIf="submitResult" class="submit-result">
-    <pre *ngIf="submitResult | json">{{ submitResult | json }}</pre>
-  </div>
+  <!-- <div *ngIf="correctedTest" class="corrected-test">
+    <h3>Resultado e feedback</h3>
+    <p class="subtitle">{{ correctedTest.titulo_prova || correctedTest.titulo || '' }}</p>
+
+    <div class="corrected-question" *ngFor="let q of correctedTest.questoes_corrigidas">
+      <h4>{{ q.numQuestao }}. {{ q.enunciado }}</h4>
+
+      <ul class="options">
+        <li *ngFor="let opt of q.opcoes; let idx = index"
+            [class.correct]="idx === q.resposta_correta"
+            [class.user-answer]="idx === q.resposta_usuario">
+          <strong *ngIf="idx === q.resposta_correta">(Correta) </strong>
+          <strong *ngIf="idx === q.resposta_usuario && idx !== q.resposta_correta">(Sua resposta) </strong>
+          {{ opt }}
+        </li>
+      </ul>
+
+      <div class="feedback" style="white-space: pre-wrap; margin-top:8px;">
+        {{ q.feedback }}
+      </div>
+    </div>
+  </div> -->
 </div>
