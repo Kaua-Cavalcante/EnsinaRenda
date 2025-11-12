@@ -13,6 +13,25 @@
             </h3>
             <img src="assets/icons/arrow-down.svg" alt="seta para baixo" />
           </div>
+          <div class="module-progress">
+            <!-- <span
+              class="progress-text"
+              *ngIf="getModuleProgress(module) < 100"
+            >
+              {{ getModuleProgress(module) }}%
+            </span> -->
+            <span
+              class="progress-text completed"
+              *ngIf="getModuleProgress(module) === 100"
+            >
+            </span>
+            <div class="progress-bar-container">
+              <!-- progress-bar is the full-width track; progress-fill shows the blue fill -->
+              <div class="progress-bar">
+                <div class="progress-fill" [style.width.%]="getModuleProgress(module)"></div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <ul
@@ -42,8 +61,6 @@
             />
           </li>
           
-          <!-- Botão de concluir módulo colocado como último item da lista de aulas
-               para que ele compacte junto com as aulas quando o módulo for recolhido. -->
           <li class="finish-module-item" *ngIf="isModuleCompleted(module)">
             <button
               class="finish-module-btn"

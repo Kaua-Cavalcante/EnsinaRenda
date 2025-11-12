@@ -74,6 +74,19 @@ export class AsideModulesComponent implements OnInit {
     );
   }
 
+  // Retorna o progresso do módulo em porcentagem (0-100)
+  getModuleProgress(module: any): number {
+    try {
+      if (!module || !Array.isArray(module.lessons) || module.lessons.length === 0) return 0;
+      const total = module.lessons.length;
+      const completed = module.lessons.filter((l: any) => this.isLessonCompleted(l.id)).length;
+      return Math.round((completed / total) * 100);
+    } catch (e) {
+      console.error('Erro ao calcular progresso do módulo:', e);
+      return 0;
+    }
+  }
+
   finishModule(module: any) {
     if (this.generatingTest) return; // prevent duplicate clicks
 
