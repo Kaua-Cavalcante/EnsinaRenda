@@ -14,7 +14,7 @@ import { CourseService } from '../../../../services/course.service';
 export class AsideModulesComponent implements OnInit {
   @Input() modules: any[] = COURSE_DATA;
   @Output() lessonSelected = new EventEmitter<any>();
-
+  
   openedIndex: number = 0;
   selectedLessonId: number | null = null;
   generatingTest: boolean = false;

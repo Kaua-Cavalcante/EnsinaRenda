@@ -6,7 +6,7 @@
         *ngFor="let module of modules; let i = index"
         [ngClass]="{ open: openedIndex === i }"
       >
-        <div class="module-container" (click)="toggleLessons(i)">
+        <div class="module-container" [class.opened]="openedIndex === i" (click)="toggleLessons(i)">
           <div class="title-container">
             <h3 class="module-title">
               {{ module.title }}
@@ -14,19 +14,18 @@
             <img src="assets/icons/arrow-down.svg" alt="seta para baixo" />
           </div>
           <div class="module-progress">
-            <!-- <span
+            <span
               class="progress-text"
               *ngIf="getModuleProgress(module) < 100"
             >
               {{ getModuleProgress(module) }}%
-            </span> -->
+            </span>
             <span
               class="progress-text completed"
               *ngIf="getModuleProgress(module) === 100"
             >
             </span>
             <div class="progress-bar-container">
-              <!-- progress-bar is the full-width track; progress-fill shows the blue fill -->
               <div class="progress-bar">
                 <div class="progress-fill" [style.width.%]="getModuleProgress(module)"></div>
               </div>

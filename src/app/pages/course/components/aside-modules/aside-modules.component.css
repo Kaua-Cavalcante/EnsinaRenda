@@ -17,6 +17,9 @@
   gap: 8px;
   background-color: var(--light-gray-color);
   border: 1px solid #d9d9d9;
+  border-top: none;
+
+  transition: all .3s ease;
 }
 
 .module-container .title-container {
@@ -41,11 +44,8 @@
   transform: rotateX(180deg);
 }
 
-.module-container .progress-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+.modules-list .module .module-container.opened {
+  background-color: #e8f4fd;
 }
 
 .module-progress {
@@ -57,9 +57,10 @@
   gap: 1rem;
 }
 
-.progress-container .percentage {
+.progress-text {
   font-size: 0.875rem;
-  padding-left: 1rem;
+  font-weight: 400;
+  color: var(--body-font-color);
 }
 
 .progress-bar-container {

@@ -1,15 +1,43 @@
 .lesson-header {
+  position: relative;
   display: flex;
   gap: 1rem;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
+  border: solid 1px #d9d9d9;
+}
+
+.logo-section {
+  position: relative;
+  padding: 0.5rem;
+  
+  width: var(--sidebar-width);
+}
+
+.logo-section .logo {
+  height: 38px;
+  padding-right: 1.5rem;
+  cursor: pointer;
+}
+
+.logo-section span {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 60%;
+  background-color: #d9d9d9;
 }
 
 .left-section {
   display: flex;
   gap: 8px;
   align-items: center;
+  margin-right: auto;
+}
+
+.right-section {
+  margin-right: 1rem;
 }
 
 .right-section .logout-btn {
@@ -27,7 +55,7 @@
   font-weight: 400;
 }
 
-img, .right-section button {
+.logout, .panel, .right-section button {
   transition: all .3s;
 
   &:hover {

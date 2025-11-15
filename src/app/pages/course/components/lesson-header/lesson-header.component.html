@@ -1,7 +1,16 @@
 <div class="lesson-header">
+  <div class="logo-section">
+    <img
+      src="../../../../../assets/Logo.svg"
+      alt="Ensina Renda Logo"
+      class="logo"
+    />
+    <span></span>
+  </div>
   <div class="left-section">
     <button class="compress-tab" (click)="onToggleAside()">
       <img
+        class="panel"
         [src]="
           isAsideVisible
             ? 'assets/icons/panel-left-close.svg'
@@ -10,12 +19,12 @@
         alt="Compress Tab Icon"
       />
     </button>
-    <h3 class="lesson-title">Fundamentos essenciais</h3>
+    <h3 class="lesson-title"> {{ currentLessonTitle }}</h3>
   </div>
 
   <div class="right-section">
     <button class="logout-btn" (click)="logout()">
-      <img src="../../../../../assets/icons/logout.svg" alt="logout" />
+      <img class="logout" src="../../../../../assets/icons/logout.svg" alt="logout" />
       <span>sair</span>
     </button>
   </div>

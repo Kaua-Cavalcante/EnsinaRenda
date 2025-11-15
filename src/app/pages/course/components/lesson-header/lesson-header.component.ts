@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LessonHeaderComponent {
   @Input() isAsideVisible: boolean = true;
+  @Input() currentLessonTitle: string = '';
   @Output() toggleAside = new EventEmitter<void>();
 
   constructor(private router: Router) {}

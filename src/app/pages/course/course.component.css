@@ -71,5 +71,7 @@
 .course-content {
   overflow-y: scroll;
   transition: all 0.3s ease;
+  padding: 8px;
+  background-color: #f2f2f2;
 }
 

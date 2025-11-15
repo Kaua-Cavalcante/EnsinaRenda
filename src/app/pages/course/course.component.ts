@@ -1,24 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { COURSE_DATA } from '../../../assets/data/course-data';
 import { CourseService } from '../../services/course.service';
 import { HeaderService } from '../../services/header.service';
+import { HeaderComponent } from '../../shared/header/header.component';
 import { AsideModulesComponent } from './components/aside-modules/aside-modules.component';
 import { LessonHeaderComponent } from './components/lesson-header/lesson-header.component';
 
 @Component({
   selector: 'app-course',
   standalone: true,
-  imports: [AsideModulesComponent, LessonHeaderComponent, CommonModule, RouterModule, RouterOutlet],
+  imports: [AsideModulesComponent, LessonHeaderComponent, CommonModule, RouterModule, RouterOutlet, HeaderComponent],
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
   modules = COURSE_DATA;
   selectedLesson: any = null;
+  selectedLessonTitle: string = '';
   IsAsideVisible: boolean = true;
   showAssessment: boolean = false;
+
+  @ViewChild('sidebar', { static: true }) sidebar!: ElementRef;
 
   constructor(
   private HeaderService: HeaderService,
@@ -30,6 +34,21 @@ export class CourseComponent implements OnInit {
         this.showAssessment = event.url.includes('/course/prova');
       }
     });
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.updateSidebarWidth();
+  }
+
+  updateSidebarWidth() {
+    if (!this.sidebar) return;
+    const rect = this.sidebar.nativeElement.getBoundingClientRect();
+    document.documentElement.style.setProperty('--sidebar-width', rect.width + 'px');
+  }
+
+  ngAfterViewInit() {
+    this.updateSidebarWidth();
   }
 
   async ngOnInit() {
@@ -61,6 +80,7 @@ export class CourseComponent implements OnInit {
 
   onLessonSelected(lesson: any) {
     this.selectedLesson = lesson;
+    this.selectedLessonTitle = lesson.title;
     this.courseService.selectLesson(lesson);
   }
 
