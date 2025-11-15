@@ -1,64 +1,88 @@
-<div *ngIf="loading" class="content-container">
-  <div class="global-loading">
-    <div class="spinner"></div>
-    <p>Carregando prova...</p>
-  </div>
-</div>
-
-<div *ngIf="!loading && error" class="content-container">
-  <p class="feedback">{{ error }}</p>
-</div>
-
-<div *ngIf="!loading && test" class="content-container">
-  <div class="title-container">
-    <h2 class="title">{{ test.titulo_prova || 'Prova' }}</h2>
-  </div>
-
-  <div *ngIf="validationMessage" class="validation-toast" role="alert">
-    {{ validationMessage }}
-  </div>
-
-  <div class="questions">
-  <div class="question-group" *ngFor="let q of test.questoes" #questionGroup [attr.data-num]="q.numQuestao" [class.unanswered]="attemptedSubmit && isUnanswered(q.numQuestao)" [class.corrected]="q.corrected">
-      <h3 class="question-title">{{ q.numQuestao }}. {{ q.enunciado }}</h3>
-      <div class="options-container" *ngIf="!q.corrected">
-        <label class="option" *ngFor="let opt of q.opcoes; let idx = index">
-          <input
-            type="radio"
-            [name]="'q' + q.numQuestao"
-            [value]="idx"
-            (change)="answers[q.numQuestao] = idx"
-            [checked]="answers[q.numQuestao] === idx"
-            [disabled]="q.corrected"
-          />
-          <span class="option-text">{{ opt }}</span>
-        </label>
-      </div>
-
-      <!-- Per-question corrected feedback (shown after server returns correction) -->
-      <div *ngIf="q.corrected" class="question-feedback">
-        <ul class="options-corrected">
-          <li *ngFor="let opt of q.corrected.opcoes; let idx = index"
-              [class.correct]="idx === q.corrected.resposta_correta"
-              [class.user-answer]="idx === q.corrected.resposta_usuario">
-            <strong *ngIf="idx === q.corrected.resposta_correta">(Correta) </strong>
-            <strong *ngIf="idx === q.corrected.resposta_usuario && idx !== q.corrected.resposta_correta">(Sua resposta) </strong>
-            {{ opt }}
-          </li>
-        </ul>
-
-        <div class="feedback-text">
-          {{ q.corrected.feedback }}
-        </div>
-      </div>
+<div class="assessment-test-container">
+  <div *ngIf="loading" class="content-container">
+    <div class="global-loading">
+      <div class="spinner"></div>
+      <p>Carregando prova...</p>
     </div>
   </div>
 
-  <!-- Placeholder submit: implement scoring later -->
-  <div class="btn-container">
-    <button class="exam-btn" (click)="submitAnswers()" [disabled]="submitting">
-      <span *ngIf="!submitting">Enviar respostas</span>
-      <span *ngIf="submitting">Enviando...</span>
-    </button>
+  <div *ngIf="!loading && error" class="content-container">
+    <p class="feedback">{{ error }}</p>
+  </div>
+
+  <div *ngIf="!loading && test" class="content-container">
+    <div class="title-container">
+      <h2 class="title">{{ test.titulo_prova || "Prova" }}</h2>
+    </div>
+
+    <div *ngIf="validationMessage" class="validation-toast" role="alert">
+      {{ validationMessage }}
+    </div>
+
+    <div class="questions">
+      <div
+        class="question-group"
+        *ngFor="let q of test.questoes"
+        #questionGroup
+        [attr.data-num]="q.numQuestao"
+        [class.unanswered]="attemptedSubmit && isUnanswered(q.numQuestao)"
+        [class.corrected]="q.corrected"
+      >
+        <h3 class="question-title">{{ q.numQuestao }}. {{ q.enunciado }}</h3>
+        <div class="options-container" *ngIf="!q.corrected">
+          <label class="option" *ngFor="let opt of q.opcoes; let idx = index">
+            <input
+              type="radio"
+              [name]="'q' + q.numQuestao"
+              [value]="idx"
+              (change)="answers[q.numQuestao] = idx"
+              [checked]="answers[q.numQuestao] === idx"
+              [disabled]="q.corrected"
+            />
+            <span class="option-text">{{ opt }}</span>
+          </label>
+        </div>
+
+        <!-- Per-question corrected feedback (shown after server returns correction) -->
+        <div *ngIf="q.corrected" class="question-feedback">
+          <div class="options-container corrected-options">
+            <label
+              class="option"
+              *ngFor="let opt of q.corrected.opcoes; let idx = index"
+              [class.correct]="idx === q.corrected.resposta_correta"
+              [class.user-answer]="idx === q.corrected.resposta_usuario"
+            >
+              <input
+                type="radio"
+                [name]="'qcorr' + q.numQuestao"
+                [value]="idx"
+                [checked]="idx === q.corrected.resposta_usuario"
+                disabled
+              />
+              <span class="option-text">{{ opt }}</span>
+
+              <span class="option-badge" *ngIf="idx === q.corrected.resposta_correta">(Correta)</span>
+              <span class="option-badge" *ngIf="idx === q.corrected.resposta_usuario && idx !== q.corrected.resposta_correta">(Sua resposta)</span>
+            </label>
+          </div>
+
+          <div class="feedback-text">
+            {{ q.corrected.feedback }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Placeholder submit: implement scoring later -->
+    <div class="btn-container">
+      <button
+        class="exam-btn"
+        (click)="submitAnswers()"
+        [disabled]="submitting"
+      >
+        <span *ngIf="!submitting">Enviar respostas</span>
+        <span *ngIf="submitting">Enviando...</span>
+      </button>
+    </div>
   </div>
 </div>

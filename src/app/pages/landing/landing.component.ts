@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import AOS from 'aos';
 import { HeaderService } from '../../services/header.service';
 import { FooterComponent } from '../../shared/footer/footer.component';
@@ -8,7 +9,7 @@ import { FaqComponent } from './components/faq/faq.component';
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [FaqComponent, FooterComponent, HeaderComponent],
+  imports: [FaqComponent, FooterComponent, HeaderComponent, RouterLink],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css'
 })
