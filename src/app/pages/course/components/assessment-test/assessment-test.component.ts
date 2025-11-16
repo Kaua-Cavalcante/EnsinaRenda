@@ -26,6 +26,9 @@ export class AssessmentTestComponent implements OnInit, OnDestroy {
   totalQuestions: number = 0;
   correctAnswers: number = 0;
   scorePercentage: number = 0;
+  finalAverage: number | null = null;
+  finalMessage: string = '';
+  finalPassed: boolean | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -191,6 +194,38 @@ export class AssessmentTestComponent implements OnInit, OnDestroy {
                 // Calculate score and scroll to top
                 this.calculateScore();
                 this.scrollToTop();
+                // Fetch final average from backend and show final message if available
+                this.courseService.getFinalAverage().subscribe({
+                  next: (avgRes: any) => {
+                    try {
+                      // Try common field names
+                      const val = avgRes?.mediaFinal ?? avgRes?.media_final ?? avgRes?.media ?? avgRes?.mediaFinalPercent;
+                      const parsed = typeof val === 'string' ? parseFloat(val) : val;
+                      this.finalAverage = isNaN(parsed) ? null : parsed;
+
+                      if (this.finalAverage !== null) {
+                        if (this.finalAverage >= 70) {
+                          this.finalPassed = true;
+                          this.finalMessage = 'Parabéns — sua média final é suficiente para aprovação!';
+                        } else {
+                          this.finalPassed = false;
+                          this.finalMessage = 'Sua média final ainda está abaixo de 70%. Considere refazer provas para melhorar sua média.';
+                        }
+                      }
+                    } catch (e) {
+                      console.error('Erro ao processar média final:', e);
+                      this.finalAverage = null;
+                      this.finalMessage = '';
+                      this.finalPassed = null;
+                    }
+                  },
+                  error: (err) => {
+                    console.error('Erro ao buscar média final:', err);
+                    this.finalAverage = null;
+                    this.finalMessage = '';
+                    this.finalPassed = null;
+                  }
+                });
               } catch (e) {
                 console.error('Erro ao parsear prova corrigida:', e);
                 this.correctedTest = null;

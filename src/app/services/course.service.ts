@@ -146,6 +146,23 @@ export class CourseService {
     this.generatingSubject.next(flag);
   }
 
+  // Busca a média final do usuário
+  getFinalAverage() {
+    const token = this.authService.getToken();
+    if (!token) {
+      console.error('Token não encontrado');
+      throw new Error('Usuário não autenticado');
+    }
+
+    const url = `${environment.apiUrl}/v1/media/final`;
+    return this.http.get(url, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
   getLastLesson() {
     if (this.completedLessons.length === 0) return null;
 

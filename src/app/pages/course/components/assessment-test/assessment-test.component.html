@@ -32,6 +32,14 @@
         </div>
       </div>
     </div>
+    <div *ngIf="finalMessage" class="final-message" role="status">
+      <div [class.success]="finalPassed" [class.warning]="finalPassed === false">
+        <strong *ngIf="finalPassed">✓ Sucesso</strong>
+        <strong *ngIf="finalPassed === false">⚠️ Atenção</strong>
+        <span class="final-text">{{ finalMessage }}</span>
+        <span *ngIf="finalAverage !== null" class="final-average"> (Média final: {{ finalAverage }}%)</span>
+      </div>
+    </div>
 
     <div class="questions">
       <div
