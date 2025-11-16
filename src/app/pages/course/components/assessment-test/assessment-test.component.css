@@ -223,3 +223,48 @@
 .question-group.corrected input[type="radio"] {
   cursor: default;
 }
+
+/* Score summary panel */
+.score-summary {
+  padding: 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #d3e7f6 100%);
+  margin-bottom: 2rem;
+}
+
+.score-card {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.score-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.score-label {
+  font-size: 0.95rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.score-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.score-value.percentage {
+  background: linear-gradient(135deg, var(--primary-color), #4a90e2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.score-value.percentage.passing {
+  color: #10b981;
+  -webkit-text-fill-color: #10b981;
+}

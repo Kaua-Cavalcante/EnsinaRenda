@@ -23,6 +23,9 @@ export class AssessmentTestComponent implements OnInit, OnDestroy {
   attemptedSubmit: boolean = false;
   validationMessage: string = '';
   private _validationTimeout: any = null;
+  totalQuestions: number = 0;
+  correctAnswers: number = 0;
+  scorePercentage: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -185,6 +188,9 @@ export class AssessmentTestComponent implements OnInit, OnDestroy {
                 } else {
                   this.correctedTest = null;
                 }
+                // Calculate score and scroll to top
+                this.calculateScore();
+                this.scrollToTop();
               } catch (e) {
                 console.error('Erro ao parsear prova corrigida:', e);
                 this.correctedTest = null;
@@ -205,6 +211,36 @@ export class AssessmentTestComponent implements OnInit, OnDestroy {
         this.submitting = false;
       }
     });
+  }
+
+  private calculateScore(): void {
+    if (!this.correctedTest || !Array.isArray(this.correctedTest.questoes_corrigidas)) {
+      this.totalQuestions = 0;
+      this.correctAnswers = 0;
+      this.scorePercentage = 0;
+      return;
+    }
+
+    const questions = this.correctedTest.questoes_corrigidas;
+    this.totalQuestions = questions.length;
+    this.correctAnswers = 0;
+
+    for (const q of questions) {
+      if (q.resposta_usuario === q.resposta_correta) {
+        this.correctAnswers++;
+      }
+    }
+
+    this.scorePercentage = this.totalQuestions > 0 ? Math.round((this.correctAnswers / this.totalQuestions) * 100) : 0;
+  }
+
+  private scrollToTop(): void {
+    try {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (e) {
+      // fallback para navegadores antigos
+      document.documentElement.scrollTop = 0;
+    }
   }
 
 }

@@ -19,6 +19,20 @@
       {{ validationMessage }}
     </div>
 
+    <!-- Score summary panel (shown after correction is loaded) -->
+    <div *ngIf="correctedTest" class="score-summary">
+      <div class="score-card">
+        <div class="score-item">
+          <span class="score-label">Você acertou</span>
+          <span class="score-value">{{ correctAnswers }}/{{ totalQuestions }}</span>
+        </div>
+        <div class="score-item">
+          <span class="score-label">Porcentagem</span>
+          <span class="score-value percentage" [class.passing]="scorePercentage >= 70">{{ scorePercentage }}%</span>
+        </div>
+      </div>
+    </div>
+
     <div class="questions">
       <div
         class="question-group"
