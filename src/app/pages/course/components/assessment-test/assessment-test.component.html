@@ -28,16 +28,27 @@
         </div>
         <div class="score-item">
           <span class="score-label">Porcentagem</span>
-          <span class="score-value percentage" [class.passing]="scorePercentage >= 70">{{ scorePercentage }}%</span>
+          <span class="score-value percentage" [class.passing]="scorePercentage >= 70">{{ scorePercentage | number:'1.0-2' }}%</span>
         </div>
       </div>
     </div>
-    <div *ngIf="finalMessage" class="final-message" role="status">
-      <div [class.success]="finalPassed" [class.warning]="finalPassed === false">
-        <strong *ngIf="finalPassed">✓ Sucesso</strong>
-        <strong *ngIf="finalPassed === false">⚠️ Atenção</strong>
-        <span class="final-text">{{ finalMessage }}</span>
-        <span *ngIf="finalAverage !== null" class="final-average"> (Média final: {{ finalAverage }}%)</span>
+    <!-- Modal for final average / pass-fail message -->
+    <div *ngIf="showFinalModal" class="modal-overlay" (click)="showFinalModal = false">
+      <div class="modal" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3 *ngIf="finalPassed">Parabéns!</h3>
+          <h3 *ngIf="finalPassed === false">Atenção</h3>
+          <button class="modal-close" (click)="showFinalModal = false">✕</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-message">{{ finalMessage }}</p>
+          <p *ngIf="finalAverage !== null" class="modal-average">Média final: <strong>{{ finalAverage | number:'1.0-2' }}%</strong></p>
+        </div>
+        <div class="modal-actions">
+          <button class="btn" *ngIf="finalPassed" (click)="showFinalModal = false">Baixar certificado</button>
+          <button class="btn" (click)="showFinalModal = false">Fechar</button>
+          <button class="btn btn-secondary" *ngIf="finalPassed === false" (click)="showFinalModal = false">Refazer provas</button>
+        </div>
       </div>
     </div>
 

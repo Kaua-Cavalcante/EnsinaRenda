@@ -187,17 +187,6 @@
   animation: slideIn 0.5s forwards;
 }
 
-@keyframes slideIn {
-  from {
-    right: -300px;
-    opacity: 0;
-  }
-  to {
-    right: 24px;
-    opacity: 1;
-  }
-}
-
 /* Corrected feedback styles */
 
 .question-feedback {
@@ -226,9 +215,9 @@
 
 /* Score summary panel */
 .score-summary {
-  padding: 2rem;
-  background: linear-gradient(135deg, #f5f7fa 0%, #d3e7f6 100%);
-  margin-bottom: 2rem;
+  padding: 1.25rem 1rem;
+  background: #f5f9fc;
+  margin-bottom: 1.25rem;
 }
 
 .score-card {
@@ -252,7 +241,7 @@
 }
 
 .score-value {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: bold;
   color: var(--primary-color);
 }
@@ -269,34 +258,40 @@
   -webkit-text-fill-color: #10b981;
 }
 
-.final-message {
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
   display: flex;
+  align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
+  z-index: 3000;
 }
 
-.final-message > div {
-  padding: 12px 16px;
-  border-radius: 8px;
-  font-weight: 600;
-  display: inline-flex;
-  gap: 8px;
+.modal {
+  background: white;
+  border-radius: 10px;
+  width: min(640px, 92%);
+  padding: 16px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
-.final-message > div.success {
-  background: #e6ffef;
-  color: #0b6b2b;
-  border: 1px solid #b7f0c9;
+.modal-close {
+  border: none;
+  background: transparent;
+  font-size: 1.1rem;
+  cursor: pointer;
 }
 
-.final-message > div.warning {
-  background: #fff5f5;
-  color: #8b1e1e;
-  border: 1px solid #f5c2c2;
-}
-
-.final-average {
-  font-weight: 500;
-  margin-left: 6px;
-}
+.modal-body { padding: 8px 0; }
+.modal-message { margin: 0 0 4px 0; font-weight: 600; }
+.modal-average { margin: 0; }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
+.btn { padding: 6px 10px; border-radius: 6px; background: var(--primary-color); color: #fff; border: none; cursor: pointer; font-size: 0.9rem; }
+.btn-secondary { background: transparent; color: var(--primary-color); border: 1px solid var(--primary-color); }

@@ -29,6 +29,7 @@ export class AssessmentTestComponent implements OnInit, OnDestroy {
   finalAverage: number | null = null;
   finalMessage: string = '';
   finalPassed: boolean | null = null;
+  showFinalModal: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -195,22 +196,46 @@ export class AssessmentTestComponent implements OnInit, OnDestroy {
                 this.calculateScore();
                 this.scrollToTop();
                 // Fetch final average from backend and show final message if available
+                console.log('Chamando getFinalAverage...');
                 this.courseService.getFinalAverage().subscribe({
                   next: (avgRes: any) => {
+                    console.log('Resposta getFinalAverage:', avgRes);
                     try {
-                      // Try common field names
-                      const val = avgRes?.mediaFinal ?? avgRes?.media_final ?? avgRes?.media ?? avgRes?.mediaFinalPercent;
+                      // Try common numeric field names for average (ignore backend message text)
+                      let val: any = null;
+                      if (avgRes) {
+                        // support responses where the value is nested (e.g. { resultadoFinal: { media: 75 } })
+                        const containers = [avgRes, avgRes.resultadoFinal].filter(Boolean);
+                        for (const container of containers) {
+                          val = container.porcentagemMedia;
+                          if (val === undefined || val === null) {
+                            for (const k of Object.keys(container)) {
+                              const v = container[k];
+                              if (typeof v === 'number') { val = v; break; }
+                              if (typeof v === 'string' && !isNaN(parseFloat(v))) { val = parseFloat(v); break; }
+                            }
+                          }
+                          if (val !== undefined && val !== null) break;
+                        }
+                      }
+
                       const parsed = typeof val === 'string' ? parseFloat(val) : val;
-                      this.finalAverage = isNaN(parsed) ? null : parsed;
+                      console.log('Valor extraído da média final:', parsed);
+                      this.finalAverage = parsed !== undefined && parsed !== null && !isNaN(parsed) ? parsed : null;
 
                       if (this.finalAverage !== null) {
+                        // Always use custom messages based on average, never backend message
                         if (this.finalAverage >= 70) {
+                          this.finalMessage = 'Parabéns! Sua média final é suficiente para aprovação.';
                           this.finalPassed = true;
-                          this.finalMessage = 'Parabéns — sua média final é suficiente para aprovação!';
                         } else {
+                          this.finalMessage = 'Sua média final ainda está abaixo de 70%. Considere refazer as provas para melhorar sua média.';
                           this.finalPassed = false;
-                          this.finalMessage = 'Sua média final ainda está abaixo de 70%. Considere refazer provas para melhorar sua média.';
                         }
+
+                        // show modal when we have average and message
+                        this.showFinalModal = true;
+                        console.log('Modal aberto:', { finalAverage: this.finalAverage, finalPassed: this.finalPassed, showFinalModal: this.showFinalModal });
                       }
                     } catch (e) {
                       console.error('Erro ao processar média final:', e);
@@ -266,7 +291,7 @@ export class AssessmentTestComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.scorePercentage = this.totalQuestions > 0 ? Math.round((this.correctAnswers / this.totalQuestions) * 100) : 0;
+    this.scorePercentage = this.totalQuestions > 0 ? (this.correctAnswers / this.totalQuestions) * 100 : 0;
   }
 
   private scrollToTop(): void {
