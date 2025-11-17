@@ -1,5 +1,5 @@
 footer {
-    padding: 52px 64px;
+    padding: 3.25rem 4rem;
 }
 
 footer .footer-content {
@@ -7,6 +7,14 @@ footer .footer-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.footer-content img {
+    height: 3.125rem;
+}
+
+.footer-content .return-btn img {
+    height: 2.75rem;
 }
 
 .footer-content p {
@@ -28,7 +36,7 @@ footer .footer-content {
     align-items: center;
     justify-content: center;
 
-    padding: 14px 14px;
+    padding: 0.875rem;
     border-radius: 32px;
     background-color: var(--medium-green-color);
     transition: all 0.3s ease;

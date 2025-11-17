@@ -1,24 +1,29 @@
 header {
   position: absolute;
   width: 100%;
-  height: 120px;
+  height: 7.5rem;
   background-color: #fff;
+  z-index: 1002;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 40px;
-  max-height: 120;
+  padding: 0.75rem 2.5rem;
+  max-height: 7.5rem;
   height: 100%;
+}
+
+.header .logo-link img {
+  height: 3.125rem;
 }
 
 .navigation .list {
   display: flex;
-  gap: 32px;
+  gap: 2rem;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .navigation .list li a {
@@ -33,7 +38,7 @@ header {
 
 .header-buttons {
   display: flex;
-  gap: 32px;
+  gap: 2rem;
   font-weight: 600;
 }
 
@@ -45,23 +50,108 @@ header {
   gap: 6px;
   border-radius: 4px;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .header-buttons .btn-register {
   display: flex;
-  padding: 23px 14px 23px 23px;
+  padding: 1.438rem 0.875rem 1.438rem 1.438rem;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 0.5rem;
   background: var(--primary-color);
   color: #fff;
   border-radius: 38px;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 1.25rem;
   transition: all 0.3s ease;
   &:hover {
     scale: 1.05;
     filter: brightness(1.1);
+  }
+}
+
+.header-buttons .btn-register img {
+  height: 2.25rem;
+}
+
+.header-buttons .btn-login img {
+  height: 0.75rem;
+}
+
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.menu-toggle,
+.menu-close {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.menu-toggle img,
+.menu-close img {
+  height: 2rem;
+  width: 2rem;
+}
+
+@media (max-width: 900px) {
+  .header {
+    padding: 0.75rem 1.5rem;
+  }
+  .menu-toggle {
+    display: block;
+    z-index: 1003;
+  }
+
+  .nav-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #fff;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+
+    z-index: 1001;
+    padding: 2rem;
+  }
+
+  .nav-wrapper.is-open {
+    transform: translateX(0);
+  }
+
+  .nav-wrapper.is-open .menu-close {
+    display: block;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .nav-wrapper .navigation .list,
+  .nav-wrapper .header-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    text-align: center;
+  }
+
+  .nav-wrapper .navigation .list li a,
+  .nav-wrapper .header-buttons .btn {
+    font-size: 1.5rem; 
   }
 }

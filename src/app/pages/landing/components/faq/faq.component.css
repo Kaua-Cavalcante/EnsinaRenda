@@ -3,7 +3,7 @@
   background-color: var(--bg-color-2);
   margin: 64px 64px 150px 64px;
   border-radius: 20px;
-  padding: 40px;
+  padding: 2.5rem;
 }
 
 .faq .container {
@@ -16,29 +16,29 @@
 }
 
 .container .section-title {
-  font-size: 76px;
+  font-size: 4.75rem;
   font-weight: 700;
   max-width: 450px;
 }
 
 .btn-container p {
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: 700;
   color: var(--body-font-color);
 }
 
 .btn-container .btn {
   display: flex;
-  padding: 24px;
+  padding: 1.5rem;
   margin-top: 28px;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 0.5rem;
   background: var(--body-font-color);
   color: #fff;
   border-radius: 38px;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 1.25rem;
 
   transition: all 0.3s ease;
 
@@ -56,7 +56,7 @@
 .question-container {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 2rem;
   cursor: pointer;
   margin-bottom: 32px;
 }
@@ -74,11 +74,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 24px;
+  padding-bottom: 1.5rem;
 }
 
 .content h3 {
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: 700;
   max-width: 540px;
 }
@@ -87,10 +87,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 0.5rem;
   background: #fff;
   border-radius: 38px;
-  padding: 16px;
+  padding: 1rem;
 }
 
 .answer {
@@ -111,8 +111,8 @@
 }
 
 .answer p {
-  font-size: 24px;
-  line-height: 32px;
+  font-size: 1.5rem;
+  line-height: 2rem;
   font-weight: 500;
   margin: 20px 0;
 }

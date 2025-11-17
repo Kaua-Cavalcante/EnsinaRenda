@@ -14,11 +14,21 @@ import { HeaderConfig, HeaderService } from '../../services/header.service';
 export class HeaderComponent {
   headerConfig$: Observable<HeaderConfig>;
 
+  public isMenuOpen: boolean = false;
+
   constructor(private headerService: HeaderService) {
     this.headerConfig$ = this.headerService.headerConfig$;
    }
 
   ngOnInit(): void {
     this.headerConfig$ = this.headerService.headerConfig$;
+  }
+
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu(): void {
+    this.isMenuOpen = false;
   }
 }
