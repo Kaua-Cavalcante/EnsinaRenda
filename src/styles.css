@@ -152,3 +152,15 @@ button {
     font-size: 80%;
   }
 }
+
+@media (max-width: 720px) {
+  :root {
+    font-size: 70%;
+  }
+}
+
+@media (max-width: 520px) {
+  :root {
+    font-size: 60%;
+  }
+}

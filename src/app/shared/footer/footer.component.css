@@ -64,3 +64,47 @@ footer .footer-content {
         transform: translateY(0);
     }
 }
+
+@media (max-width: 768px) {
+    footer {
+        position: relative;
+        padding: 2rem;
+    }
+
+    footer .footer-content {
+        align-items: center;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .footer-content p {
+        position: static;
+        transform: none;
+        text-align: center;
+    }
+
+    .footer-content img {
+        height: 4rem;
+    }
+
+    .return-btn {
+        position: absolute;
+        top: 0.8rem;
+        right: 1rem;
+    }
+}
+
+@media (max-width: 360px) {
+
+    .footer-content img {
+        height: 3rem;
+    }
+
+    .footer-content .return-btn img {
+        height: 2.5rem;
+    }
+
+    .footer-content p {
+        font-size: 1.2rem;
+    }
+}

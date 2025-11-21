@@ -4,7 +4,7 @@
       <img src="assets/Logo.svg" alt="Logotipo" class="logo" />
     </a>
 
-    <button class="menu-toggle" (click)="toggleMenu()" aria-label="Abrir menu">
+    <button class="menu-toggle" [class.is-open]="isMenuOpen" (click)="toggleMenu()" aria-label="Abrir menu">
       <img src="assets/icons/hamburger.svg" alt="Abrir menu" />
     </button>
 

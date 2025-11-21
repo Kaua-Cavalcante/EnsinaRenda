@@ -19,6 +19,18 @@ header {
   height: 3.125rem;
 }
 
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2rem;
+  width: 100%;
+}
+
+.navigation {
+  margin: auto;
+}
+
 .navigation .list {
   display: flex;
   gap: 2rem;
@@ -79,19 +91,24 @@ header {
   height: 0.75rem;
 }
 
-.nav-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
 .menu-toggle,
 .menu-close {
   display: none;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 1rem;
+  background-color: var(--medium-green-color);
+  border-radius: 64px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    scale: 1.1;
+  }
+}
+
+.menu-toggle.is-open {
+  display: none;
 }
 
 .menu-toggle img,
@@ -152,6 +169,10 @@ header {
 
   .nav-wrapper .navigation .list li a,
   .nav-wrapper .header-buttons .btn {
-    font-size: 1.5rem; 
+    font-size: 2rem;
+  }
+
+  .nav-wrapper .header-buttons .btn {
+    padding: 2rem 2rem;
   }
 }
