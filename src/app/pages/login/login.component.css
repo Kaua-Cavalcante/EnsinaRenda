@@ -37,14 +37,14 @@ form .title-container img {
 }
 
 form .title-container h3 {
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 form .form-container {
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
-  min-width: 500px;
+  min-width: 31.25rem;
 }
 
 form .input-group {
@@ -102,14 +102,14 @@ form .input-group .show-password label {
 
 .form-container .login-btn {
   display: flex;
-  padding: 23px 14px 23px 23px;
+  padding: 1.5rem 0.875rem 1.5rem 1.5rem;
   align-items: center;
   justify-content: space-between;
   background: var(--primary-color);
   color: #fff;
   border-radius: 38px;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 1.25rem;
   transition: all 0.3s ease;
 
   &:hover {
@@ -150,7 +150,7 @@ form .input-group .show-password label {
   align-items: center;
   justify-content: flex-end;
   padding: 2rem;
-  width: 620px;
+  max-width: 620px;
   background-image: url("/assets/images/signup-hero-bg.png");
   background-repeat: no-repeat;
   background-size: cover;
@@ -193,4 +193,68 @@ form .input-group .show-password label {
 
 .error li {
   list-style: outside;
+}
+
+@media (max-width: 1024px) {
+  .form-hero h2 {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  form .form-container {
+    min-width: 28rem;
+  }
+}
+
+@media (max-width: 800px) {
+
+  .login-container {
+    flex-direction: column;
+    width: 70vw;
+  }
+  
+  .form-hero {
+    display: none;
+  }
+  
+  .login .login-container form {
+    border-radius: 16px;
+    box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.163);
+    -webkit-box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.163);
+    -moz-box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.163);
+    padding: 6rem 4rem;
+  }
+  
+  form .title-container img {
+    display: none;
+  }
+
+  form .title-container h3 {
+    font-size: 1.75rem;
+  }
+
+  form .form-container {
+    min-width: 0;
+  }
+
+  form .form-container .login-btn {
+    padding: 1rem 0.75rem 1rem 1rem;
+  }
+
+  form .form-container .login-btn img {
+    height: 2.125rem;
+  }
+}
+
+@media (max-width: 426px) {
+  .login-container {
+    width: 100vw;
+  }
+
+  .login .login-container form {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+  }
 }
