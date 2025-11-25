@@ -45,7 +45,7 @@
           <p *ngIf="finalAverage !== null" class="modal-average">Média final: <strong>{{ finalAverage | number:'1.0-2' }}%</strong></p>
         </div>
         <div class="modal-actions">
-          <button class="btn" *ngIf="finalPassed" (click)="showFinalModal = false">Baixar certificado</button>
+          <button class="btn" *ngIf="finalPassed" (click)="downloadCertificate()">Baixar certificado</button>
           <button class="btn" (click)="showFinalModal = false">Fechar</button>
           <button class="btn btn-secondary" *ngIf="finalPassed === false" (click)="showFinalModal = false">Refazer provas</button>
         </div>
@@ -116,6 +116,46 @@
         <span *ngIf="!submitting">Enviar respostas</span>
         <span *ngIf="submitting">Enviando...</span>
       </button>
+    </div>
+  </div>
+</div>
+
+<div class="certificate-wrapper">
+  <div id="certificate-content" #certificateTemplate>
+    <img src="assets/images/bg-certificado1.png" alt="Background" class="cert-bg">
+    
+    <div class="cert-overlay">
+        <div class="cert-header">
+            <h2 class="company-name">ENSINA RENDA</h2>
+        </div>
+
+        <h1 class="cert-title">Certificado de conclusão<br>de curso</h1>
+
+        <p class="cert-conferred">Conferimos a:</p>
+
+        <h2 class="student-name">{{ studentName }}</h2>
+
+        <div class="cert-text">
+            <p>
+                O certificado de conclusão do curso:<br>
+                <strong>"{{ test?.titulo_prova || 'Curso de Investimentos' }}"</strong>,<br>
+                com carga horária de <strong>{{ courseDuration }} horas</strong>.
+            </p>
+        </div>
+
+        <div class="cert-footer">
+            <div class="signature-block">
+                <p class="signature-name">Instituição Ensina Renda</p>
+                <div class="signature-line"></div>
+                <p class="signature-role">Diretoria</p>
+            </div>
+            
+            <div class="signature-block">
+                <p class="signature-name">Amigurinhos</p>
+                <div class="signature-line"></div>
+                <p class="signature-role">Parceiro</p>
+            </div>
+        </div>
     </div>
   </div>
 </div>

@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '../../../../services/course.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-assessment-test',
@@ -30,6 +32,9 @@ export class AssessmentTestComponent implements OnInit, OnDestroy {
   finalMessage: string = '';
   finalPassed: boolean | null = null;
   showFinalModal: boolean = false;
+  studentName: string = 'Roberto Gondo Macedo'; 
+  courseDuration: number = 4; 
+  @ViewChildren('certificateTemplate') certificateTemplate!: ElementRef; // Referência ao HTML do certificado
 
   constructor(
     private route: ActivatedRoute,
@@ -301,6 +306,41 @@ export class AssessmentTestComponent implements OnInit, OnDestroy {
       // fallback para navegadores antigos
       document.documentElement.scrollTop = 0;
     }
+  }
+
+  public downloadCertificate(): void {
+    const data = this.certificateTemplate.nativeElement;
+
+    // Aguarda um momento para garantir que os dados estejam renderizados (opcional, mas seguro)
+    setTimeout(() => {
+      html2canvas(data, { 
+        scale: 3, // Aumenta a escala para alta resolução (evita texto borrado)
+        useCORS: true, // Importante se a imagem de fundo vier de URL externa
+        logging: false 
+      }).then(canvas => {
+        
+        // Dimensões A4 Paisagem (Landscape) em mm
+        const pdfWidth = 297; 
+        const pdfHeight = 210;
+        
+        const imgWidth = pdfWidth;
+        const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        const contentDataURL = canvas.toDataURL('image/png');
+        
+        const pdf = new jsPDF('l', 'mm', 'a4'); // 'l' = landscape
+        const position = 0;
+        
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+        
+        // Gera o nome do arquivo: Certificado - Nome do Curso.pdf
+        const fileName = `Certificado - ${this.test?.titulo_prova || 'Curso'}.pdf`;
+        pdf.save(fileName);
+
+        // Fecha o modal após o download
+        this.showFinalModal = false;
+      });
+    }, 100);
   }
 
 }
