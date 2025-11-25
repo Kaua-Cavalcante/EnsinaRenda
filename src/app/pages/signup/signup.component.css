@@ -33,19 +33,18 @@ form .title-container {
 }
 
 form .title-container img {
-  height: 50px;
+  height: 3.125rem;
 }
 
 form .title-container h3 {
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 form .form-container {
   display: grid;
-  grid-template-columns: 220px 220px;
+  grid-template-columns: 13.75rem 13.75rem;
   grid-template-rows: auto;
   gap: 1.75rem;
-  min-width: 500px;
 }
 
 .form-container .input-group.fullname,
@@ -81,7 +80,7 @@ form .input-group input:focus {
 }
 
 form .input-group .show-password {
-  margin-top: 12px;
+  margin-top: 0.75rem;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -96,14 +95,14 @@ form .input-group .show-password input {
 
 .form-container .create-btn {
   display: flex;
-  padding: 23px 14px 23px 23px;
+  padding: 1.5rem 0.875rem 1.5rem 1.5rem;
   align-items: center;
   justify-content: space-between;
   background: var(--primary-color);
   color: #fff;
-  border-radius: 38px;
+  border-radius: 2.375rem;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 1.25rem;
   transition: all 0.3s ease;
 
   &:hover {
@@ -185,4 +184,68 @@ form .input-group .show-password input {
 
 .error li {
   list-style: outside;
+}
+
+@media (max-width: 1024px) {
+  .form-hero h2 {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  form .form-container {
+    min-width: 28rem;
+  }
+}
+
+@media (max-width: 810px) {
+  .signup-container {
+    flex-direction: column;
+    align-items: center;
+    width: 70vw;
+  }
+  
+  .form-hero {
+    display: none;
+  }
+  
+  .signup .signup-container form {
+    border-radius: 16px;
+    box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.163);
+    -webkit-box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.163);
+    -moz-box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.163);
+    padding: 6rem 4rem;
+  }
+  
+  form .title-container img {
+    display: none;
+  }
+
+  form .title-container h3 {
+    font-size: 1.75rem;
+  }
+
+  form .form-container {
+    min-width: 0;
+  }
+
+  form .form-container .create-btn {
+    padding: 1rem 0.75rem 1rem 1rem;
+  }
+
+  form .form-container .create-btn img {
+    height: 2.125rem;
+  }
+}
+
+@media (max-width: 426px) {
+  .signup-container {
+    width: 100vw;
+  }
+
+  .signup .signup-container form {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+  }
 }
