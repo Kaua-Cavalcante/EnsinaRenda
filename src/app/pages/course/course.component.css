@@ -19,6 +19,10 @@
 .header {
   grid-area: header;
   width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1400;
+  background: #fff;
 }
 
 .course-content {
@@ -73,5 +77,51 @@
   transition: all 0.3s ease;
   padding: 8px;
   background-color: #f2f2f2;
+}
+
+/* Responsive: mobile and tablet adjustments */
+@media (max-width: 900px) {
+  .course-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "course";
+    height: 100%;
+  }
+
+  /* Make aside an overlay panel on small screens */
+  .aside {
+    position: fixed;
+    top: 60px; /* below header */
+    left: 0;
+    height: calc(100% - 60px);
+    width: 85vw;
+    max-width: 340px;
+    background: #fff;
+    border-right: 1px solid #d9d9d9;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    z-index: 1200;
+    transform: translateX(-110%);
+    transition: transform 260ms ease;
+    overflow-y: auto;
+  }
+
+  /* When aside is not hidden (class `aside-hidden` absent), slide it in */
+  .course-container:not(.aside-hidden) .aside {
+    transform: translateX(0);
+  }
+
+  /* Dim the main content when aside is open by keeping overlay handled by aside itself */
+  .course-content {
+    padding: 8px 12px;
+  }
+
+  .header, .course-content { width: 100%; }
+}
+
+@media (max-width: 520px) {
+  .title-container { height: 40vh; padding: 1.25rem; }
+  .aside { width: 92vw; max-width: 320px; }
+  .overlay-generating .overlay-inner { padding: 1rem; }
 }
 

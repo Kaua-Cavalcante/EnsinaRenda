@@ -86,11 +86,12 @@
   width: 16px;
   height: 16px;
   border: 2px solid #555;
-  border-radius: 50%;
+  border-radius: 50px;
   display: inline-block;
   position: relative;
   cursor: pointer;
   transition: all 0.2s ease;
+  flex-shrink: 0;
 
   &:checked::after {
     content: '';
@@ -295,3 +296,14 @@
 .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
 .btn { padding: 6px 10px; border-radius: 6px; background: var(--primary-color); color: #fff; border: none; cursor: pointer; font-size: 0.9rem; }
 .btn-secondary { background: transparent; color: var(--primary-color); border: 1px solid var(--primary-color); }
+
+@media (max-width: 520px) {
+  .title-container { height: 30vh; padding: 1rem; }
+  .title { font-size: 1.5rem; }
+  .content-container { padding: 0.75rem; }
+  .conclude-btn { padding: 0.75rem 1rem; font-size: 1rem; }
+  .questions .question-group .question-title { font-size: 1.25rem; }
+  .questions .question-group .option { font-size: 1.125rem; }
+  .feedback-text { font-size: 1.125rem; }
+  .exam-btn { font-size: 1.25rem;}
+}

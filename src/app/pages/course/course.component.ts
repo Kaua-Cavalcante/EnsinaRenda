@@ -4,14 +4,13 @@ import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/rout
 import { COURSE_DATA } from '../../../assets/data/course-data';
 import { CourseService } from '../../services/course.service';
 import { HeaderService } from '../../services/header.service';
-import { HeaderComponent } from '../../shared/header/header.component';
 import { AsideModulesComponent } from './components/aside-modules/aside-modules.component';
 import { LessonHeaderComponent } from './components/lesson-header/lesson-header.component';
 
 @Component({
   selector: 'app-course',
   standalone: true,
-  imports: [AsideModulesComponent, LessonHeaderComponent, CommonModule, RouterModule, RouterOutlet, HeaderComponent],
+  imports: [AsideModulesComponent, LessonHeaderComponent, CommonModule, RouterModule, RouterOutlet],
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css']
 })

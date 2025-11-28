@@ -104,3 +104,20 @@
 .exam-btn:hover {
   background-color: #0056b3;
 }
+
+/* Responsive adjustments for course content */
+@media (max-width: 900px) {
+  .title-container { height: 42vh; padding: 1.25rem; }
+  .title { font-size: 1.6rem; max-width: 360px; }
+  .content-container { padding: 1rem; }
+  .lesson-content { font-size: 0.98rem; }
+  .conclude-btn { padding: 0.9rem 1.2rem; font-size: 1.05rem; }
+}
+
+@media (max-width: 520px) {
+  .title-container { height: 30vh; padding: 1rem; }
+  .title { font-size: 1.25rem; }
+  .content-container { padding: 0.75rem; }
+  .lesson-content { font-size: 0.95rem; }
+  .conclude-btn { padding: 0.75rem 1rem; font-size: 1rem; }
+}

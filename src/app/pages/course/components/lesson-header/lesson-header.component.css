@@ -4,18 +4,26 @@
   gap: 1rem;
   align-items: center;
   border: solid 1px #d9d9d9;
+  min-height: 60px;
+  padding: 0 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
 }
 
 .logo-section {
   position: relative;
   padding: 0.5rem;
-  
-  width: var(--sidebar-width);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 0 0 88px;
 }
 
 .logo-section .logo {
   height: 38px;
-  padding-right: 1.5rem;
+  padding-right: 0.75rem;
   cursor: pointer;
 }
 
@@ -34,10 +42,18 @@
   gap: 8px;
   align-items: center;
   margin-right: auto;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .right-section {
   margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.compress-tab {
+  z-index: 1600;
+  flex-shrink: 0;
 }
 
 .right-section .logout-btn {
@@ -53,12 +69,33 @@
 .lesson-header .lesson-title, .logout-btn span {
   font-size: 1.125rem;
   font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1 1 auto;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .logo-section { padding: 0.25rem;}
+  .logo-section .logo { height: 2rem; }
+  .lesson-header .lesson-title, .logout-btn span { font-size: 1rem; }
+  .lesson-header .compress-tab .panel { height: 1.5rem; }
+  .left-section { gap: 6px; }
+}
+
+@media (max-width: 520px) {
+  .logo-section .logo { height: 2.5rem; }
+  .lesson-header .compress-tab .panel { height: 2rem; }
+  .lesson-header .lesson-title { font-size: 1rem; }
+  .right-section .logout-btn span { display: none; }
 }
 
 .logout, .panel, .right-section button {
   transition: all .3s;
-
-  &:hover {
-    scale: 1.05;
-  }
+  flex-shrink: 0;
+}
+.logout:hover, .panel:hover, .right-section button:hover {
+  transform: scale(1.05);
 }
